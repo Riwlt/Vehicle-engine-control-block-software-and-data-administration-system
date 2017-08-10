@@ -35,8 +35,18 @@ app.controller('formController', function($scope, $location, $http) {
 		console.log($scope.formDetails);
 		console.log($location.absUrl());
 	}
-	
-	
+	$scope.test = function(){
+		console.log($scope.formDetails);
+		console.log($location.absUrl());
+	}
+	$scope.xasd = function(){
+		console.log($scope.formDetails);
+		console.log($location.absUrl());
+	}
+	$scope.ddd = function(){
+		console.log($scope.formDetails);
+		console.log($location.absUrl());
+	}
 });
 
 
