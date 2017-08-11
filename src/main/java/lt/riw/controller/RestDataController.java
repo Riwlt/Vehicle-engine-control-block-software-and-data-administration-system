@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +31,9 @@ public class RestDataController {
 
 	@Autowired
 	private CustomerRepository custRepo;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@RequestMapping( value = "/insertvehicle", method = RequestMethod.POST)
 	public String insertVehicle(
@@ -39,7 +43,9 @@ public class RestDataController {
 		String test = gson.toJson(vehicle);
 		System.out.println(test);
 		*/
-		vehRepo.save(vehicle);
+		vehRepo.save(vehicle); 
+		
+		//String englishMessage = messageSource.getMessage("", locale);
 		return "Done";
 	}
 	

@@ -22,59 +22,44 @@
 </head>
 <body>
 
-	<div data-ng-controller="customersController">
-		<ul>
-			<li data-ng-repeat="x in vehicleResponse">{{x.modelName + ', ' +
-				x.mileage + ', ' + x.fuelType + ', ' + x.id}}</li>
-		</ul>
-	</div>
-
-	<div data-ng-controller="vehicleController">
-		Name: <input data-ng-model="vehicleResponse"></input>
-		<h1>{{vehicleNames[0].modelName}}</h1>
-		<table>
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>Model Name</th>
-					<th>Mileage</th>
-					<th>Fuel Type</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="x in vehicleData">
-					<td>{{x.id}}</td>
-					<td>{{x.modelName}}</td>
-					<td>{{x.mileage}}</td>
-					<td>{{x.fuelType}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
  <form action = "#" th:action="@{/}" th:object="${vehicleForm}" method="post" data-ng-controller="formController">
  <fieldset>
 	<legend>Form</legend>
             <table>
                 <tr>
+                 <td>Markė</td>
+                    <td><input type="text" th:field="*{markName}" data-ng-model="formDetails.markName" /></td>
+                    <td th:if="${#fields.hasErrors('markName')}" th:errors="*{markName}">Name Error</td>
+                 </tr>
+                   <tr>
+                 <td>Modelis</td>
+                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
+                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 </tr>
+                   <tr>
+                 <td>Metai</td>
+                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
+                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 </tr>
+                   <tr>
                  <td>Model Name</td>
                     <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
                     <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td>Mileage</td>
-                      <td><input type="text" th:field="*{mileage}" data-ng-model="formDetails.mileage" data-ng-pattern="/^\d+$/" class="my-input"/></td>
-                       <td th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}" >Age Error</td>
-                </tr>
-                 <tr>
-                    <td>Fuel Type</td>
-                      <td><input type="text" th:field="*{fuelType}" data-ng-model="formDetails.fuelType" /><br/></td>
-                      
-                        <td th:if="${#fields.hasErrors('fuelType')}" th:errors="*{fuelType}" >FuelType Error</td>
-                </tr>
+                 </tr>
+                   <tr>
+                 <td>Model Name</td>
+                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
+                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 </tr>
+                   <tr>
+                 <td>Model Name</td>
+                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
+                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 </tr>
                 <tr>
                     <td><button class="btn btn-large btn-success" data-ng-click="addVehicle()">Submit</button></td>
                 </tr>
+              
             </table>
             </fieldset>
         </form>

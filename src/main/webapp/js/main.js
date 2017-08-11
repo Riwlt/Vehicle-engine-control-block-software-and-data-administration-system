@@ -7,32 +7,34 @@ app.controller('customersController', function($scope, $http) {
 app.controller('vehicleController', function($scope, $http) {
 	$http.get("http://localhost:8080/showone?id=3").then(function(response) {
 		$scope.vehicleData = response.data;
-	
+
 	});
 });
 
 app.controller('formController', function($scope, $location, $http) {
 	$scope.mileage = 0;
 	$scope.formDetails = {
-		'modelName': $scope.modelName,
-		'mileage': $scope.mileage,
-		'fuelType': $scope.fuelType
+		'markName' : $scope.markName,	
+		'modelName' : $scope.modelName,
+		'vehicleYear' : $scope.vehicleYear,
+		'dateRepaired' : $scope.dateRepaired,
+		'vehicleChangesComment' : $scope.vehicleChangesComment,
+		'hexFile' : $scope.hexFile
 	};
-	
-	$scope.addVehicle = function(){
+
+	$scope.addVehicle = function() {
 		$http({
-			method: 'POST',
-			url: $location.absUrl() + "insertvehicle",
-			data: $scope.formDetails,
-			headers: {'Content-Type': 'application/json'}
+			method : 'POST',
+			url : $location.absUrl() + "insertvehicle",
+			data : $scope.formDetails,
+			headers : {
+				'Content-Type' : 'application/json'
+			}
 		}).then(function successCallBack(response) {
-			//Success
-		}, function errorCallBack(response){
-			//Error
+			// Success
+		}, function errorCallBack(response) {
+			// Error
 		});
 	}
 
 });
-
-
-
