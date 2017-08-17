@@ -12,6 +12,12 @@
     color:white;
     background: red;
   }
+  fieldset {
+    display: block;
+    width:50%;
+    padding-left: 2px;
+    padding-right: 2px;
+}
 </style>
 
 
@@ -22,39 +28,48 @@
 </head>
 <body>
 
- <form action = "#" th:action="@{/}" th:object="${vehicleForm}" method="post" data-ng-controller="formController">
+
+
+ <form action = "#" th:action="@{/}" th:object="${vehicleForm}" method="post" data-ng-controller="FormController" enctype="multipart/form-data">
  <fieldset>
 	<legend>Form</legend>
             <table>
                 <tr>
-                 <td>Markė</td>
-                    <td><input type="text" th:field="*{markName}" data-ng-model="formDetails.markName" /></td>
-                    <td th:if="${#fields.hasErrors('markName')}" th:errors="*{markName}">Name Error</td>
+                 <td>Mark</td>
+                    <td><input type="text" th:field="*{markName}" data-ng-model="markName"  /></td>
+                    <td th:if="${#fields.hasErrors('markName')}" th:errors="*{markName}">Mark Error</td>
                  </tr>
                    <tr>
-                 <td>Modelis</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 <td>Model</td>
+                    <td><input type="text" th:field="*{modelName}" data-ng-model="modelName" /></td>
+                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Model Error</td>
                  </tr>
                    <tr>
-                 <td>Metai</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 <td>Year</td>
+                    <td><input type="number" th:field="*{vehicleYear}" data-ng-model="vehicleYear" data-ng-pattern="/^[0-9]*$/"/></td>
+                    <td th:if="${#fields.hasErrors('vehicleYear')}" th:errors="*{vehicleYear}">Vehicle Year Error</td>
                  </tr>
                    <tr>
-                 <td>Model Name</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 <td>Repair date</td>
+                    <td><input type="date"  th:field="*{dateRepaired}"  data-ng-model="dateRepaired"  value="{{dateRepaired}}" />
+                    </td>
                  </tr>
                    <tr>
-                 <td>Model Name</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 <td>Changes made</td>
+                    <td><textarea th:field="*{vehicleChangesComment}" data-ng-model="vehicleChangesComment" ></textarea></td>
+                    <td th:if="${#fields.hasErrors('vehicleChangesComment')}" th:errors="*{vehicleChangesComment}">Comment Error</td>
                  </tr>
                    <tr>
-                 <td>Model Name</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="formDetails.modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</td>
+                 <td>Hex File</td>
+                    <td>
+                    <input type="file" th:field="*{hexFile}" data-bind-file="" data-ng-model="hexFile" />
+   				    <div data-ng-show="hexFile">
+      				  {{hexFile.name}}<br />
+       				  {{hexFile.size}} byte(s)<br/>
+        			  {{hexFile.type}}
+				    </div>
+				    </td>
+                    <td th:if="${#fields.hasErrors('hexFile')}" th:errors="*{hexFile}">File Error</td>
                  </tr>
                 <tr>
                     <td><button class="btn btn-large btn-success" data-ng-click="addVehicle()">Submit</button></td>

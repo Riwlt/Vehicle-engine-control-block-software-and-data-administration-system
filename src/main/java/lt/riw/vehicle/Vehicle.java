@@ -1,8 +1,7 @@
 package lt.riw.vehicle;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.Year;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,39 +11,38 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.mysql.jdbc.Blob;
 
 @Entity
-@Table(name = "mobility_vehicle")
-public class Vehicle implements Serializable{
-	
+@Table(name = "vehicle")
+public class Vehicle implements Serializable {
+
 	private static final long serialVersionUID = 6327623771768272238L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@Column(name = "mark_name")
 	private String markName;
-	
-	@Column(name = "vehicle_year")
-	private Year vehicleYear;
-	
-	@Column(name = "date_repaired")
-	private Date dateRepaired;
-	
-	@Column(name = "vehicle_changes_comment")
-	private String vehicleChangesComment;
-	
-	@Column(name = "hex_file")
-	@Lob
-	private Blob hexFile;
-	
+
 	@Column(name = "model_name")
 	private String modelName;
 
-	public Vehicle(String markName, Year vehicleYear, Date dateRepaired, String vehicleChangesComment, Blob hexFile,
-			String modelName) {
+	@Column(name = "vehicle_year")
+	private int vehicleYear;
+
+	@Column(name = "date_repaired")
+	private Date dateRepaired;
+
+	@Column(name = "vehicle_changes_comment")
+	private String vehicleChangesComment;
+
+	@Column(name = "hex_file")
+	@Lob
+	private byte[] hexFile;
+
+	public Vehicle(String markName, int vehicleYear, Date dateRepaired, String vehicleChangesComment,
+			byte[] hexFile, String modelName) {
 		super();
 		this.markName = markName;
 		this.vehicleYear = vehicleYear;
@@ -66,11 +64,11 @@ public class Vehicle implements Serializable{
 		this.markName = markName;
 	}
 
-	public Year getVehicleYear() {
+	public int getVehicleYear() {
 		return vehicleYear;
 	}
 
-	public void setVehicleYear(Year vehicleYear) {
+	public void setVehicleYear(int vehicleYear) {
 		this.vehicleYear = vehicleYear;
 	}
 
@@ -90,11 +88,11 @@ public class Vehicle implements Serializable{
 		this.vehicleChangesComment = vehicleChangesComment;
 	}
 
-	public Blob getHexFile() {
+	public byte[] getHexFile() {
 		return hexFile;
 	}
 
-	public void setHexFile(Blob hexFile) {
+	public void setHexFile(byte[] hexFile) {
 		this.hexFile = hexFile;
 	}
 
@@ -112,5 +110,4 @@ public class Vehicle implements Serializable{
 				+ modelName + "]";
 	}
 
-	
 }

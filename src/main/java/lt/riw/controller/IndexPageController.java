@@ -1,6 +1,7 @@
 package lt.riw.controller;
 
 
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class IndexPageController extends WebMvcConfigurerAdapter{
 	
 	@RequestMapping(value = "/")
 	ModelAndView index( ModelAndView modelAndView, Model model) {
+	
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}

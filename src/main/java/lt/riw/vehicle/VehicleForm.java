@@ -1,14 +1,15 @@
 package lt.riw.vehicle;
 
 import java.sql.Date;
-import java.time.Year;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.mysql.jdbc.Blob;
+import org.springframework.web.multipart.MultipartFile;
+
+
 
 public class VehicleForm {
 
@@ -21,13 +22,11 @@ public class VehicleForm {
 	private String modelName;
 	
 	@NotNull
-	@Min(1900-01-01)
-	@Max(2100-01-01)
-	private Year vehicleYear;
+	@Min(1900)
+	@Max(2100)
+	private int vehicleYear;
 
 	@NotNull
-	@Min(1900-01-01)
-	@Max(2100-01-01)
 	private Date dateRepaired;
 	
 	@NotNull
@@ -35,7 +34,7 @@ public class VehicleForm {
 	private String vehicleChangesComment;
 	
 	@NotNull
-	private Blob hexFile;
+	private MultipartFile hexFile;
 
 	public String getMarkName() {
 		return markName;
@@ -53,11 +52,11 @@ public class VehicleForm {
 		this.modelName = modelName;
 	}
 
-	public Year getVehicleYear() {
+	public int getVehicleYear() {
 		return vehicleYear;
 	}
 
-	public void setVehicleYear(Year vehicleYear) {
+	public void setVehicleYear(int vehicleYear) {
 		this.vehicleYear = vehicleYear;
 	}
 
@@ -77,11 +76,11 @@ public class VehicleForm {
 		this.vehicleChangesComment = vehicleChangesComment;
 	}
 
-	public Blob getHexFile() {
+	public MultipartFile getHexFile() {
 		return hexFile;
 	}
 
-	public void setHexFile(Blob hexFile) {
+	public void setHexFile(MultipartFile hexFile) {
 		this.hexFile = hexFile;
 	}
 	
