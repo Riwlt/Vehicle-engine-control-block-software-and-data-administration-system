@@ -20,11 +20,10 @@ import lt.riw.vehicle.VehicleForm;
 @Controller
 public class IndexPageController extends WebMvcConfigurerAdapter{
 	
-	
-	@RequestMapping(value = "/")
+
+	@RequestMapping(value = "/vehicleform")
 	ModelAndView index( ModelAndView modelAndView, Model model) {
-	
-		modelAndView.setViewName("index");
+		modelAndView.setViewName("vehicleform");
 		return modelAndView;
 	}
 	
@@ -32,16 +31,18 @@ public class IndexPageController extends WebMvcConfigurerAdapter{
 	    public void addViewControllers(ViewControllerRegistry registry) {
 	        registry.addViewController("/results").setViewName("results");
 	    }
-	  @GetMapping("/")
+	 
+	  @GetMapping("/vehicleform")
 	    public String showForm(VehicleForm vehicleForm) {
-	        return "index";
+	        return "vehicleform";
 	    }
 
-	    @PostMapping("/")
+	    @PostMapping("/vehicleform")
 	    public String checkCustomerInfo(@Valid VehicleForm vehicleForm, BindingResult bindingResult) {
 	        if (bindingResult.hasErrors()) {
-	            return "index";
+	            return "vehicleform";
 	        }
-	        return "redirect:/";
+	        return "redirect:/vehicleform";
 	    }
+
 }

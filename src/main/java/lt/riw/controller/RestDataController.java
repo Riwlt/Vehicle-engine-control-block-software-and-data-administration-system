@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 
 import lt.riw.customers.Customer;
 import lt.riw.customers.CustomerRepository;
+
 import lt.riw.vehicle.Vehicle;
 import lt.riw.vehicle.VehicleRepository;
 
@@ -35,14 +36,15 @@ public class RestDataController {
 
 	@Autowired
 	private CustomerRepository custRepo;
- 
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, 
 			@RequestParam("markName") String markName,
 			@RequestParam("modelName") String modelName, 
 			@RequestParam("vehicleYear") int vehicleYear,
 			@RequestParam("dateRepaired") Date dateRepaired,
-			@RequestParam("vehicleChangesComment") String vehicleChangesComment) throws IOException {
+			@RequestParam("vehicleChangesComment") String vehicleChangesComment
+			) throws IOException {
 		// Request File
 		MultipartHttpServletRequest mRequest;
 		mRequest = (MultipartHttpServletRequest) request;
@@ -58,9 +60,16 @@ public class RestDataController {
 			//Saving to DB
 			vehRepo.save(vehicle);
 		}
-
+	} 
+	/*
+	@RequestMapping(value = "/check")
+	public String showUser(){
+		List<Users> users = (List<Users>) userRepo.findAll();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String usersJson = gson.toJson(users);
+		return usersJson;
 	}
-
+*/
 	@RequestMapping(value = "/insertcustomer", method = RequestMethod.POST)
 	public String insertCustomer(@RequestParam("age") int custAge, @RequestParam("city") String custCity,
 			@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {

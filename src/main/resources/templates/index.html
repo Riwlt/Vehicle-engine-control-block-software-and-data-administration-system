@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" data-ng-app="index">
+	xmlns:th="http://www.thymeleaf.org" 
+	 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" data-ng-app="index">
 <head>
 <title>Index page</title>
 <style>
@@ -18,65 +19,28 @@
     padding-left: 2px;
     padding-right: 2px;
 }
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
 </style>
-
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
 <script src="js/main.js"></script>
+
 <!--  <link th:href="@{css/bootstrap.min.css}" rel="stylesheet"/> -->
 </head>
-<body>
-
-
-
- <form action = "#" th:action="@{/}" th:object="${vehicleForm}" method="post" data-ng-controller="FormController" enctype="multipart/form-data">
- <fieldset>
-	<legend>Form</legend>
-            <table>
-                <tr>
-                 <td>Mark</td>
-                    <td><input type="text" th:field="*{markName}" data-ng-model="markName"  /></td>
-                    <td th:if="${#fields.hasErrors('markName')}" th:errors="*{markName}">Mark Error</td>
-                 </tr>
-                   <tr>
-                 <td>Model</td>
-                    <td><input type="text" th:field="*{modelName}" data-ng-model="modelName" /></td>
-                    <td th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Model Error</td>
-                 </tr>
-                   <tr>
-                 <td>Year</td>
-                    <td><input type="number" th:field="*{vehicleYear}" data-ng-model="vehicleYear" data-ng-pattern="/^[0-9]*$/"/></td>
-                    <td th:if="${#fields.hasErrors('vehicleYear')}" th:errors="*{vehicleYear}">Vehicle Year Error</td>
-                 </tr>
-                   <tr>
-                 <td>Repair date</td>
-                    <td><input type="date"  th:field="*{dateRepaired}"  data-ng-model="dateRepaired"  value="{{dateRepaired}}" />
-                    </td>
-                 </tr>
-                   <tr>
-                 <td>Changes made</td>
-                    <td><textarea th:field="*{vehicleChangesComment}" data-ng-model="vehicleChangesComment" ></textarea></td>
-                    <td th:if="${#fields.hasErrors('vehicleChangesComment')}" th:errors="*{vehicleChangesComment}">Comment Error</td>
-                 </tr>
-                   <tr>
-                 <td>Hex File</td>
-                    <td>
-                    <input type="file" th:field="*{hexFile}" data-bind-file="" data-ng-model="hexFile" />
-   				    <div data-ng-show="hexFile">
-      				  {{hexFile.name}}<br />
-       				  {{hexFile.size}} byte(s)<br/>
-        			  {{hexFile.type}}
-				    </div>
-				    </td>
-                    <td th:if="${#fields.hasErrors('hexFile')}" th:errors="*{hexFile}">File Error</td>
-                 </tr>
-                <tr>
-                    <td><button class="btn btn-large btn-success" data-ng-click="addVehicle()">Submit</button></td>
-                </tr>
-              
-            </table>
-            </fieldset>
-        </form>
+<body data-ng-cloak = "" class="ng-cloak">
+<div data-ng-controller="navigation as nav" class="container">
+		<ul class="nav nav-pills" role="tablist">
+			<li ><a href="vehicleform">Form</a></li>
+			<li ><a href="login">login</a></li>
+			<li data-ng-show="authenticated"><a href="" data-ng-click="nav.logout()">logout</a></li>
+		</ul>
+	</div>
+	<!-- View appears here -->
+	<div data-ng-view = "" ></div>
+	<!--  -->
+<!-- needs noscript -->
 </body>
 </html>
