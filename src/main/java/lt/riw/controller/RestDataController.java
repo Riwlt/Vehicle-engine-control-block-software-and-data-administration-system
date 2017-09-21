@@ -23,12 +23,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
+
 public class RestDataController {
 
 	@Autowired
@@ -36,40 +43,32 @@ public class RestDataController {
 
 	@Autowired
 	private CustomerRepository custRepo;
-	
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public void upload(HttpServletRequest request, 
-			@RequestParam("markName") String markName,
-			@RequestParam("modelName") String modelName, 
-			@RequestParam("vehicleYear") int vehicleYear,
-			@RequestParam("dateRepaired") Date dateRepaired,
-			@RequestParam("vehicleChangesComment") String vehicleChangesComment
-			) throws IOException {
+	public void upload(HttpServletRequest request,
+			@RequestParam("vehicle") String jsonString, List<MultipartFile> file) throws IOException {
+		Gson gson = new Gson();
+		Vehicle vehicle = gson.fromJson(jsonString, Vehicle.class);
 		// Request File
 		MultipartHttpServletRequest mRequest;
 		mRequest = (MultipartHttpServletRequest) request;
-		// iterate
 		Iterator<String> itr = mRequest.getFileNames();
 		while (itr.hasNext()) {
-			//New MultipartFile and making it a byte array to upload to database as a blob
+			// New MultipartFile and making it a byte array to upload to database as a blob
 			MultipartFile hexFile = mRequest.getFile(itr.next());
 			byte[] hexFileBytes = hexFile.getBytes();
-			//New object with all of the form data
-			Vehicle vehicle = new Vehicle(markName, vehicleYear, dateRepaired, vehicleChangesComment, hexFileBytes,
-					modelName);
-			//Saving to DB
+			vehicle.setHexFile(hexFileBytes);
+			// New object with all of the form data
+			// Saving to DB
 			vehRepo.save(vehicle);
 		}
-	} 
-	/*
-	@RequestMapping(value = "/check")
-	public String showUser(){
-		List<Users> users = (List<Users>) userRepo.findAll();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String usersJson = gson.toJson(users);
-		return usersJson;
 	}
-*/
+	/*
+	 * @RequestMapping(value = "/check") public String showUser(){ List<Users>
+	 * users = (List<Users>) userRepo.findAll(); Gson gson = new
+	 * GsonBuilder().setPrettyPrinting().create(); String usersJson =
+	 * gson.toJson(users); return usersJson; }
+	 */
 	@RequestMapping(value = "/insertcustomer", method = RequestMethod.POST)
 	public String insertCustomer(@RequestParam("age") int custAge, @RequestParam("city") String custCity,
 			@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
@@ -77,7 +76,13 @@ public class RestDataController {
 		return "Done";
 	}
 
-	@RequestMapping("/showall")
+	@GetMapping("/showall")
+	public ResponseEntity<List<Vehicle>> showAll() {
+		List<Vehicle> list = (List<Vehicle>) vehRepo.findAll();
+		return new ResponseEntity<List<Vehicle>>(list, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/asdasdasd", method = RequestMethod.GET)
 	public String showAllVehicles() throws JsonGenerationException, JsonProcessingException, IOException {
 		List<Vehicle> vehicles = (List<Vehicle>) vehRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -86,7 +91,6 @@ public class RestDataController {
 	}
 
 	@RequestMapping(value = "/showone", method = RequestMethod.GET)
-	@ResponseBody
 	public String showOne(@RequestParam(value = "id", required = true) int id) {
 		String oneVehicle = "";
 		Vehicle vehicles = vehRepo.findById(id);

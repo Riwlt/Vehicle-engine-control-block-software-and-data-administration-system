@@ -1,22 +1,19 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Login</title>
+<title>Add Student</title>
 </head>
-<body>
-<div class="alert alert-danger" data-ng-show="controller.error">
-    There was a problem logging in. Please try again.
-</div>
-<form role="form" data-ng-submit="controller.login()">
-    <div class="form-group">
-        <label for="username">Username:</label> <input type="text"
-            class="form-control" id="username" name="username" data-ng-model="controller.credentials.username"/>
-    </div>
-    <div class="form-group">
-        <label for="password">Password:</label> <input type="password"
-            class="form-control" id="password" name="password" data-ng-model="controller.credentials.password"/>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</body>
+<body onload='document.f.username.focus();'>
+<h3>Login with Username and Password</h3>
+<form name='f' action='/login' method='POST'>
+<table>
+	<tr><td>User:</td><td><input type='text' name='username' value='' /></td></tr>
+	<tr><td>Password:</td><td><input type='password' name='password'/></td></tr>
+	<tr><td colspan='2'><input name="submit" type="submit" value="Login"/></td></tr>
+	<tr><td>
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /></td></tr>
+</table>
+  </form>
+  </body>
 </html>

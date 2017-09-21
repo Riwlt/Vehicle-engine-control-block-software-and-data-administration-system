@@ -1,9 +1,6 @@
 package lt.riw.users;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -35,17 +32,36 @@ public class UserController {
 		 @Autowired 
 		 private UserLoginDetails userLoginDetails;
 		 
-		 
-	    protected void configure(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
-	    	auth.authenticationProvider(authenticationProvider());
-	    	  http
-	          .httpBasic().and()
+		 public void configure(HttpSecurity http) throws Exception{
+			 http
+	          //Request Authorization
 	          .authorizeRequests()
-	            .antMatchers("/login").permitAll().anyRequest()
-	            .authenticated().and()
-	          .csrf()
+	            .antMatchers("/login", "/showall", "/upload").permitAll().anyRequest()
+	            .authenticated()
+	            .and()
+	            //Form Login
+	            .formLogin()
+	            .loginPage("/login")
+	            .permitAll()
+	            .defaultSuccessUrl("/")
+	            .failureUrl("/login?error")
+	            .and()
+	            //Logout
+	            .logout().logoutSuccessUrl("/login")
+	            .and()
+	            //HTTP basic authentication is supported
+	            .httpBasic()
+	            .and()
+	            //Cross site tokenization
+	        .csrf()
 	            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-	    } 
+		 }
+		 
+	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	    		//User Authentication and login view
+		    	auth.authenticationProvider(authenticationProvider());
+	            
+	    }
 	    
 	    private DaoAuthenticationProvider authenticationProvider() {
 	    	final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

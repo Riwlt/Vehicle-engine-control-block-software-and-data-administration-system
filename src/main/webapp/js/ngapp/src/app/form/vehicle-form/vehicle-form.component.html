@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Vehicle Form</h1>
+  <form #vehicleForm="ngForm" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <label for="markName">Mark Name</label>
+      <input type="text" class="form-control" id="markName" required [(ngModel)]="vehicles.markName" name="markName" #markName="ngModel">
+      <div [hidden]="markName.valid || markName.pristine" class="alert alert-danger">
+        Mark Name is required
+      </div>
+    </div>
+   
+    <div class="form-group">
+        <label for="modelName">Model Name</label>
+        <input type="text" class="form-control" id="modelName" required [(ngModel)]="vehicles.modelName" name="modelName" #modelName="ngModel">
+        <div [hidden]="modelName.valid || modelName.pristine" class="alert alert-danger">
+          Model Name is required
+        </div>
+      </div>
+
+    <div class="form-group">
+        <label for="markName">Year</label>
+      <input type="number" class="form-control" id="vehicleYear" required [(ngModel)]="vehicles.vehicleYear" name="vehicleYear" #vehicleYear="ngModel" >
+        <div [hidden]="vehicleYear.valid || vehicleYear.pristine" class="alert alert-danger">
+          Vehicle Year is required
+        </div>
+      </div>
+
+
+    <div class="form-group">
+        <label for="dateRepaired">Repair date</label>
+        <input type="date" class="form-control" id="dateRepaired" required [(ngModel)]="vehicles.dateRepaired" name="dateRepaired" #dateRepaired="ngModel">
+        <div [hidden]="dateRepaired.valid || dateRepaired.pristine" class="alert alert-danger">
+         Repair date is required
+        </div>
+      </div>
+
+    <div class="form-group">
+        <label for="vehicleChangesComment">Vehicle Repair Comment</label>
+        <textarea class="form-control" id="vehicleChangesComment" required 
+        [(ngModel)]="vehicles.vehicleChangesComment" name="vehicleChangesComment" #vehicleChangesComment="ngModel">
+        </textarea>
+        <div [hidden]="vehicleChangesComment.valid || vehicleChangesComment.pristine" class="alert alert-danger">
+            Vehicle repair comment is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="hexFile">Hex File</label>
+        <input type="file" class="form-control" id="hexFile" (change)="getFiles($event)" name="hexFile" >
+      </div>
+
+
+    <button type="submit" class="btn btn-success" [disabled]="!vehicleForm.form.valid" (click)="add(vehicleForm); vehicleForm.reset()">Submit</button>
+
+  </form>
+</div>
