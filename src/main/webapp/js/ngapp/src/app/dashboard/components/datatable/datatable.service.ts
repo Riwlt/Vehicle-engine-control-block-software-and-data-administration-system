@@ -8,27 +8,21 @@ import { RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { IVehicle } from './vehicle.interface';
+import { Datatable } from './datatable.interface';
 
 @Injectable()
-export class VehicleService {
+export class DatatableService {
   private vehicleUrl = 'http://localhost:8080/showall';
-  private vehicleByIdUrl = 'http://localhost:8080/showone?id=';
 
   constructor(private http: Http) { }
 
-  getVehicles(): Promise<IVehicle[]> {
+  getVehicles(): Promise<Datatable[]> {
     return this.http.get(this.vehicleUrl)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
-  getVehicleById(id): Promise<IVehicle[]> {
-    return this.http.get(this.vehicleByIdUrl + id)
-    .toPromise()
-    .then(this.extractData)
-    .catch(this.handleError);
-  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body || [];

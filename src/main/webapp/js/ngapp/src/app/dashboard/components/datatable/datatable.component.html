@@ -1,0 +1,15 @@
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+  <input #gb type="text" pInputText size="50" placeholder="Global Search">
+</div>
+<p-dataTable [value]="vehicles" [rows]="10" selectionMode="single" [paginator]="true" 
+[globalFilter]="gb" [responsive] = "true" reorderableColumns="true"  [(selection)]="selectedVehicle" (onRowSelect)="onRowSelect($event)" #dt >
+  <p-column field="markName" header="Mark Name" [sortable]="true"></p-column>
+  <p-column field="modelName" header="Model Name" [sortable]="true"></p-column>
+  <p-column field="vehicleYear" header="Vehicle Year" [sortable]="true"></p-column>
+  <p-column field="cubage" header="Cubage" [sortable] = "true" ></p-column>
+  <p-column field="gearboxType" header="Gearbox Type" [sortable] = "true" ></p-column>
+</p-dataTable>
+
+
+<!-- [responsive]=true, [sortable]=true  -->

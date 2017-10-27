@@ -1,4 +1,4 @@
-export interface IVehicle {
+export interface Datatable {
     id: number;
     markName: string;
     modelName: string;
