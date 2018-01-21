@@ -13,7 +13,7 @@ describe('UserComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
+/*   beforeEach(() => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -21,5 +21,5 @@ describe('UserComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
+  }); */
 });

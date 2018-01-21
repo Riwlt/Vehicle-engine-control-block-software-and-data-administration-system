@@ -9,3 +9,12 @@ export interface IVehicle {
     gearboxType: string;
     hexFile: File;
 }
+export interface IVehicleMark {
+    id: number;
+    markName: string;
+}
+export interface IVehicleModel {
+    id: number;
+    mark_id: number;
+    modelName: string;
+}

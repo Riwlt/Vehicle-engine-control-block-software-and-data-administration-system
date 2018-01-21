@@ -9,6 +9,7 @@ import { Headers } from '@angular/http';
 import { RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Datatable } from './datatable.interface';
+import { MessageService } from './../common/message/message.service';
 
 @Injectable()
 export class DatatableService {
@@ -29,6 +30,7 @@ export class DatatableService {
   }
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
+
     return Promise.reject(error.message || error);
   }
 }

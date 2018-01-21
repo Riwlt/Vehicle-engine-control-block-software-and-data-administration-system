@@ -4,6 +4,7 @@ import { VehicleFormComponent } from './form/vehicle-form/vehicle-form.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DatatableComponent } from './dashboard/components/datatable/datatable.component';
 import { UserComponent } from './dashboard/components/user/user.component';
+import { MarkComponent } from './dashboard/components/new/mark/mark.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'dashboard/data', pathMatch: 'full' },
@@ -13,9 +14,11 @@ export const routes: Routes = [
         children: [
             { path: 'vehicleform', component: VehicleFormComponent },
             { path: 'data', component: DatatableComponent },
-            { path: 'data/:id', component: UserComponent }],
+            { path: 'data/:id', component: UserComponent },
+            { path: 'new/mark', component: MarkComponent }
+        ],
     },
-    { path: '**', redirectTo: 'dashboard/data', pathMatch: 'full'}
+    { path: '**', redirectTo: 'dashboard/data', pathMatch: 'full' }
 
 ];
 

@@ -3,19 +3,19 @@
     <form #vehicleForm="ngForm" enctype="multipart/form-data">
 
       <div class="form-group">
-        <label for="markName">Mark Name</label>
-        <input type="text" class="form-control" id="markName" required [(ngModel)]="vehicles.markName" name="markName" #markName="ngModel">
-        <div [hidden]="markName.valid || markName.pristine" class="alert alert-danger">
-          Mark Name is required
-        </div>
+        <label for="email">Mark Name</label>
+        <select class="form-control" #markName (change)="onMarkChange(markName.value)" [(ngModel)]="vehicles.markName" name="markName"
+          ([formControl])="markNameControl" required>
+          <option *ngFor="let mark of vehicleMarks">{{mark?.markName}}</option>
+        </select>
       </div>
 
-      <div class="form-group">
-        <label for="modelName">Model Name</label>
-        <input type="text" class="form-control" id="modelName" required [(ngModel)]="vehicles.modelName" name="modelName" #modelName="ngModel">
-        <div [hidden]="modelName.valid || modelName.pristine" class="alert alert-danger">
-          Model Name is required
-        </div>
+      <div *ngIf="chosen" class="form-group">
+        <label for="email">Model Name</label>
+        <select class="form-control" #modelName name="modelName" [(ngModel)]="vehicles.modelName" required>
+          <option [ngValue]="undefined" selected></option>
+          <option *ngFor="let model of selectedVehicleModels">{{model}}</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -68,9 +68,8 @@
         <input type="file" class="form-control" id="hexFile" (change)="getFiles($event)" name="hexFile">
       </div>
 
-
-      <button type="submit" class="btn btn-success" [disabled]="!vehicleForm.form.valid" (click)="add(vehicleForm); vehicleForm.reset()">Submit</button>
-
+      <button type="submit" class="btn btn-success" (click)="add(vehicleForm); vehicleForm.reset()" [disabled]="!vehicleForm.form.valid">Submit</button>
     </form>
   </div>
 </p-panel>
+<app-message></app-message>

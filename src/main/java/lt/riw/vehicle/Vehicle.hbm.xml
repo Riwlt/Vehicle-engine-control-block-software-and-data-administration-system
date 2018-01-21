@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-mapping>
+
+	<!-- VEHICLE REPOSITORY -->
+
+	<class name="lt.riw.vehicle.Vehicle" lazy="false" table="vehicle_repository">
+		<meta attribute="class-description">
+			Main class for everything vehicle related.
+		</meta>
+		<id name="id" type="long" column="id" > 
+		<generator class="identity"/>
+		</id>
+		<property name="markId" column="mark_id" type="int" />
+		<property name="modelId" column="model_id" type="int" />
+		<property name="vehicleYear" column="vehicle_year" type="int" />
+		<property name="dateRepaired" column="date_repaired" type="date" />
+		<property name="vehicleChangesComment" column="vehicle_changes_comment"
+			type="string" />
+		<property name="cubage" column="cubage" type="int" />
+		<property name="gearboxType" column="gearbox_type" type="string" />
+		<property name="hexFile" column="hex_file" type="byte[]" />
+	</class>
+
+	<!-- VEHICLE MODEL -->
+
+	<class name="lt.riw.vehicle.VehicleModel" table="vehicle_model">
+		<meta attribute="class-description">
+			Vehicle model class
+		</meta>
+		<id name="id" type="long" column="id">
+		<generator class="identity"/>
+		</id>
+		<property name="modelName" column="model" type="string" />
+		<property name="modelMarkId" column="mark_id" type="int" />
+	</class>
+
+	<!-- VEHICLE MARK -->
+
+	<class name="lt.riw.vehicle.VehicleMark" table="vehicle_mark">
+		<meta attribute="class-description">
+			Vehicle model class
+		</meta>
+		<id name="id" type="long" column="id">
+		<generator class="identity"/>
+		</id>
+		<property name="markName" column="mark" type="string" />
+		<!-- <property name="model_mark_id" column="mark_id" string="int"></property> -->
+	</class>
+</hibernate-mapping>   
+     

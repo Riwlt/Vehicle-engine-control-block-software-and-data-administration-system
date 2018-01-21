@@ -1,0 +1,18 @@
+.editField{
+    font-size:18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px black solid;
+    border-radius: 25px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.editFieldText{
+    font-size:18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+.center{
+    text-align:center;
+}

@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
+import { MarkComponent } from './mark.component';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('MarkComponent', () => {
+  let component: MarkComponent;
+  let fixture: ComponentFixture<MarkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ MarkComponent ]
     })
     .compileComponents();
   }));
 
-/*   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MarkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  }); */
+  });
 });

@@ -4,14 +4,18 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "vehicle_repository")
@@ -23,15 +27,17 @@ public class Vehicle implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "mark_name")
-	private String markName;
+	@Column(name = "mark_id")
+	private int markId;
 
-	@Column(name = "model_name")
-	private String modelName;
+	@Column(name = "model_id")
+	private int modelId;
 
 	@Column(name = "vehicle_year")
 	private int vehicleYear;
 
+	@Basic
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_repaired")
 	private Date dateRepaired;
 
@@ -40,24 +46,24 @@ public class Vehicle implements Serializable {
 
 	@Column(name = "cubage")
 	private int cubage;
-	
+
 	@Column(name = "gearbox_type")
 	private String gearboxType;
-	
+
 	@Column(name = "hex_file")
 	@Lob
 	private byte[] hexFile;
 
-	public Vehicle(String markName, int vehicleYear, Date dateRepaired, String vehicleChangesComment,
-			byte[] hexFile, String modelName, int cubage, String gearboxType, long id) {
+	public Vehicle(int markId, int vehicleYear, Date dateRepaired, String vehicleChangesComment, byte[] hexFile,
+			int modelId, int cubage, String gearboxType, long id) {
 		super();
 		this.id = id;
-		this.markName = markName;
+		this.markId = markId;
 		this.vehicleYear = vehicleYear;
 		this.dateRepaired = dateRepaired;
 		this.vehicleChangesComment = vehicleChangesComment;
 		this.hexFile = hexFile;
-		this.modelName = modelName;
+		this.modelId = modelId;
 		this.gearboxType = gearboxType;
 		this.cubage = cubage;
 	}
@@ -66,12 +72,12 @@ public class Vehicle implements Serializable {
 		super();
 	}
 
-	public String getMarkName() {
-		return markName;
+	public int getMarkId() {
+		return markId;
 	}
 
-	public void setMarkName(String markName) {
-		this.markName = markName;
+	public void setMarkId(int markId) {
+		this.markId = markId;
 	}
 
 	public int getVehicleYear() {
@@ -106,12 +112,12 @@ public class Vehicle implements Serializable {
 		this.hexFile = hexFile;
 	}
 
-	public String getModelName() {
-		return modelName;
+	public int getModelId() {
+		return modelId;
 	}
 
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
+	public void setModelId(int modelId) {
+		this.modelId = modelId;
 	}
 
 	public int getCubage() {
@@ -129,7 +135,7 @@ public class Vehicle implements Serializable {
 	public void setGearboxType(String gearboxType) {
 		this.gearboxType = gearboxType;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -140,11 +146,9 @@ public class Vehicle implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Vehicle [markName=" + markName + ", modelName=" + modelName + ", vehicleYear=" + vehicleYear
-				+ ", dateRepaired=" + dateRepaired + ", vehicleChangesComment=" + vehicleChangesComment + ", cubage="
-				+ cubage + ", gearboxType=" + gearboxType + ", hexFile=" + Arrays.toString(hexFile) + "]";
+		return "Vehicle [markId=" + markId + ", modelId=" + modelId + ", vehicleYear=" + vehicleYear + ", dateRepaired="
+				+ dateRepaired + ", vehicleChangesComment=" + vehicleChangesComment + ", cubage=" + cubage
+				+ ", gearboxType=" + gearboxType + ", hexFile=" + Arrays.toString(hexFile) + "]";
 	}
-	
-	
 
 }

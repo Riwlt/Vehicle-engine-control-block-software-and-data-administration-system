@@ -5,6 +5,7 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
+	browser: ['Chrome'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -27,7 +28,12 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    singleRun: false,
+	files: [
+	  "node_modules/primeng/resources/themes/omega/theme.css",
+      "node_modules/primeng/resources/primeng.min.css",
+      "node_modules/primeui/primeui-ng-all.min.css",
+		"node_modules/bootstrap/dist/css/bootstrap.min.css",
+	]
   });
 };

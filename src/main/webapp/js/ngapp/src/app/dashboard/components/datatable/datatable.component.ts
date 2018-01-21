@@ -21,11 +21,12 @@ export class DatatableComponent implements OnInit {
 
   ngOnInit() {
     this.service.getVehicles().then(vehicles => this.vehicles = vehicles);
+    
   }
 
   onRowSelect(event) {
     this.router.navigate(['/dashboard/data', this.selectedVehicle.id]);
-
+ 
   }
 
 

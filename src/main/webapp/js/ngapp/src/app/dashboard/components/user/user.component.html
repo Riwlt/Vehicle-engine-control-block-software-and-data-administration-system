@@ -1,80 +1,129 @@
-<p-growl [(value)]="message"></p-growl>
-<button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
-<p-panel header="User information">
-    <h3 class="first">Click the field to edit</h3>
+<p-panel header="Vehicle information: Click the field to edit.">
     <form #userForm="ngForm" enctype="multipart/form-data">
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.markName }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="{{ vehicles.markName }}" pInputText>
-        </span>
-    </p-inplace>
-    <!-- Model name -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.modelName }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="{{ vehicles.modelName }}" pInputText>
-        </span>
-    </p-inplace>
-    <!-- Year  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.vehicleYear }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="number" value="{{ vehicles.vehicleYear }}" pInputText>
-        </span>
-    </p-inplace>
-    <!-- Date Repaired  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.dateRepaired | date: 'yyyy-MM-dd'}} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="date" value="{{ vehicles.dateRepaired }}" pInputText>
-        </span>
-    </p-inplace>
-    <!-- Gearbox Type  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.gearboxType }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="{{ vehicles.gearboxType }}" pInputText>
-        </span>
-    </p-inplace>
-    <!-- Cubage  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.cubage }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="number" value="{{ vehicles.cubage }}" pInputText>
-        </span>
-    </p-inplace>
-      <!-- Comment  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-            {{ vehicles.vehicleChangesComment }} <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="{{ vehicles.vehicleChangesComment }}" pInputText>
-        </span>
-    </p-inplace>
-      <!-- Hex File  -->
-    <p-inplace closable="closable">
-        <span pInplaceDisplay>
-         Hex file <i class = "fa fa-pencil"></i>
-        </span>
-        <span pInplaceContent>
-            <input type="text" value="{{ vehicles.hexFile }}" pInputText>
-        </span>
-    </p-inplace>
-    
-
-</form>
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Mark name</span>
+                <span class="editField">{{ vehicles.markName }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="text" #markName name="markName" [(ngModel)]="vehicles.markName" value="{{ vehicles.markName }}" pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Model name -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">Model name</span>
+                <span class="editField">
+                    {{ vehicles.modelName }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="text" #modelName name="modelName" [(ngModel)]="vehicles.modelName" value="{{ vehicles.modelName }}" pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Year  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText"> Vehicle year </span>
+                <span class="editField">
+                    {{ vehicles.vehicleYear }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="number" #vehicleYear name="vehicleYear" [(ngModel)]="vehicles.vehicleYear" value="{{ vehicles.vehicleYear }}"
+                    pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Date Repaired  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Date of repair </span>
+                <span class="editField">
+                    {{ vehicles.dateRepaired | date: 'yyyy-MM-dd'}}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="date" #dateRepaired name="dateRepaired" [(ngModel)]="vehicles.dateRepaired" pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Gearbox Type  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Gearbox type </span>
+                <span class="editField">
+                    {{ vehicles.gearboxType }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="text" #gearboxType name="gearboxType" [(ngModel)]="vehicles.gearboxType" value="{{ vehicles.gearboxType }}"
+                    pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Cubage  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Cubage
+                </span>
+                <span class="editField">
+                    {{ vehicles.cubage }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="number" #cubage name="cubage" [(ngModel)]="vehicles.cubage" value="{{ vehicles.cubage }}" pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Comment  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Vehicle comment
+                </span>
+                <span class="editField">
+                    {{ vehicles.vehicleChangesComment }}
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="text" #vehicleChangesComment name="vehicleChangesComment" [(ngModel)]="vehicles.vehicleChangesComment" value="{{ vehicles.vehicleChangesComment }}"
+                    pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <!-- Hex File  -->
+        <p-inplace closable="closable">
+            <span pInplaceDisplay>
+                <span class="editFieldText">
+                    Hex file
+                </span>
+                <span class="editField">
+                    <i class="fa fa-pencil"></i>
+                </span>
+            </span>
+            <span pInplaceContent>
+                <input type="text" #hexFile name="hexFile" [(ngModel)]="vehicles.hexFile" value="{{ vehicles.hexFile }}" pInputText>
+            </span>
+        </p-inplace>
+        <hr>
+        <div class="center">
+            <button type="button" pButton (click)="editVehicle(userForm);" label="Update" class="ui-button-success"></button>
+        </div>
+    </form>
+    <app-message></app-message>
 </p-panel>
