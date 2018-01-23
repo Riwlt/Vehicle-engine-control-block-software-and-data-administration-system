@@ -3,7 +3,7 @@
     <form #vehicleForm="ngForm" enctype="multipart/form-data">
 
       <div class="form-group">
-        <label for="email">Mark Name</label>
+        <label for="markName">Mark Name</label>
         <select class="form-control" #markName (change)="onMarkChange(markName.value)" [(ngModel)]="vehicles.markName" name="markName"
           ([formControl])="markNameControl" required>
           <option *ngFor="let mark of vehicleMarks">{{mark?.markName}}</option>
@@ -11,7 +11,7 @@
       </div>
 
       <div *ngIf="chosen" class="form-group">
-        <label for="email">Model Name</label>
+        <label for="modelName">Model Name</label>
         <select class="form-control" #modelName name="modelName" [(ngModel)]="vehicles.modelName" required>
           <option [ngValue]="undefined" selected></option>
           <option *ngFor="let model of selectedVehicleModels">{{model}}</option>

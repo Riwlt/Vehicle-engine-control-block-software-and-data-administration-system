@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DatatableComponent } from './dashboard/components/datatable/datatable.component';
 import { UserComponent } from './dashboard/components/user/user.component';
 import { MarkComponent } from './dashboard/components/new/mark/mark.component';
+import { ModelComponent } from './dashboard/components/new/model/model.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'dashboard/data', pathMatch: 'full' },
@@ -15,7 +16,8 @@ export const routes: Routes = [
             { path: 'vehicleform', component: VehicleFormComponent },
             { path: 'data', component: DatatableComponent },
             { path: 'data/:id', component: UserComponent },
-            { path: 'new/mark', component: MarkComponent }
+            { path: 'new/mark', component: MarkComponent },
+            { path: 'new/model', component: ModelComponent }
         ],
     },
     { path: '**', redirectTo: 'dashboard/data', pathMatch: 'full' }

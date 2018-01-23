@@ -1,3 +1,9 @@
-<p>
-  mark works!
-</p>
+<p-panel header="Add a new mark to the database">
+    <form #markForm="ngForm" enctype="multipart/form-data">
+      <div class="form-group">
+          <label for="email">Mark Name</label>
+          <input type="text" #markName class="form-control"   name="markName" required>
+        </div>
+  
+      </form>
+  </p-panel>
