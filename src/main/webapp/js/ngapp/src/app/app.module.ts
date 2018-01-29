@@ -25,6 +25,8 @@ import { MessageComponent } from './dashboard/components/common/message/message.
 import { VehicleFormPipe } from './pipes/vehicle-form.pipe';
 import { MarkComponent } from './dashboard/components/new/mark/mark.component';
 import { ModelComponent } from './dashboard/components/new/model/model.component';
+import { ManageVehiclesComponent } from './dashboard/components/manage/manage-vehicles/manage-vehicles.component';
+import { ManageClientsComponent } from './dashboard/components/manage/manage-clients/manage-clients.component';
 
 @NgModule({
   imports: [
@@ -49,7 +51,9 @@ import { ModelComponent } from './dashboard/components/new/model/model.component
     MessageComponent,
     VehicleFormPipe,
     MarkComponent,
-    ModelComponent
+    ModelComponent,
+    ManageVehiclesComponent,
+    ManageClientsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

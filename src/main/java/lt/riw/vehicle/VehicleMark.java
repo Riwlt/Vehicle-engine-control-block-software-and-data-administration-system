@@ -26,8 +26,6 @@ public class VehicleMark implements Serializable {
 	@Column(name = "mark")
 	private String markName;
 
-	
-
 	public VehicleMark(String markName,  long id) {
 		super();
 		this.id = id;

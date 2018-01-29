@@ -86,7 +86,6 @@ export class VehicleFormComponent implements OnInit {
     this.files = event.srcElement.files;
   }
 
-
   // Adding data to FormData object and sending to backend
   add(form: NgForm): Promise<IVehicle> {
     let formData: FormData = new FormData();

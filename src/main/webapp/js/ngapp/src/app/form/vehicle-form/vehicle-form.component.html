@@ -1,11 +1,11 @@
 <p-panel header="Vehicle Form">
   <div class="container">
     <form #vehicleForm="ngForm" enctype="multipart/form-data">
-
       <div class="form-group">
         <label for="markName">Mark Name</label>
         <select class="form-control" #markName (change)="onMarkChange(markName.value)" [(ngModel)]="vehicles.markName" name="markName"
           ([formControl])="markNameControl" required>
+          <option [ngValue]="undefined" selected></option>
           <option *ngFor="let mark of vehicleMarks">{{mark?.markName}}</option>
         </select>
       </div>
@@ -67,7 +67,6 @@
         <label for="hexFile">Hex File</label>
         <input type="file" class="form-control" id="hexFile" (change)="getFiles($event)" name="hexFile">
       </div>
-
       <button type="submit" class="btn btn-success" (click)="add(vehicleForm); vehicleForm.reset()" [disabled]="!vehicleForm.form.valid">Submit</button>
     </form>
   </div>

@@ -36,7 +36,7 @@ public class UserController {
 			 http
 	          //Request Authorization
 	          .authorizeRequests()
-	            .antMatchers("/login", "/showall", "/upload","/showone","/showall/model","/showall/mark","/edit/vehicle","/add/mark","/add/model").permitAll().anyRequest()
+	            .antMatchers("/login", "/showall", "/upload","/showone","/showall/model","/showall/mark","/edit/vehicle","/add/mark","/add/model","/test").permitAll().anyRequest()
 	            .authenticated()
 	            .and()
 	            //Form Login
