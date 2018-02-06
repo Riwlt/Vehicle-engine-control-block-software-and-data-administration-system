@@ -39,13 +39,14 @@ public class RestDataController {
 	// Manage Vehicles + Clients pataisyt
 	// Vehicle comment fielda padaryt kad nerodytu viso
 	// Padaryt edite kad reiktu pasirinkt o ne editint ta fielda
+	// Padaryt angulare kad url visu vehicle nuorodu butu kaip konstantos
 	
 	@Autowired
 	private SessionFactory factory;
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/showall")
+	@RequestMapping("/api/showall")
 	public List<Vehicle> showAll() {
 		// Building session
 		Session session = factory.openSession();
@@ -63,7 +64,7 @@ public class RestDataController {
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/showall/model")
+	@RequestMapping(value = "/api/showall/model")
 	public List<Vehicle> showAllModels() {
 		Session session = factory.openSession();
 		session.beginTransaction();
@@ -77,7 +78,7 @@ public class RestDataController {
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/showall/mark")
+	@RequestMapping(value = "/api/showall/mark")
 	public List<Vehicle> showAllMarks() {
 		Session session = factory.openSession();
 		session.beginTransaction();
@@ -88,7 +89,7 @@ public class RestDataController {
 	}
 
 	@Transactional
-	@RequestMapping(value = "/showone", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/showone", method = RequestMethod.GET)
 	public String showOne(@RequestParam(value = "id", required = true) int id) {
 		Session session = factory.openSession();
 		session.beginTransaction();
