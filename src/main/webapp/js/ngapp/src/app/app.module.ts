@@ -34,7 +34,6 @@ import { AuthGuard } from './authentication/_guards/auth.guard';
 import { ManageUsersComponent } from './dashboard/components/manage/manage-users/manage-users.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ArraySortPipe } from './pipes/array-sort.pipe';
 import { ManageMarksComponent } from './dashboard/components/manage/manage-marks/manage-marks.component';
 
 
@@ -71,7 +70,6 @@ import { ManageMarksComponent } from './dashboard/components/manage/manage-marks
     ManageClientsComponent,
     LoginComponent,
     ManageUsersComponent,
-    ArraySortPipe,
     ManageMarksComponent
   ],
   schemas: [
