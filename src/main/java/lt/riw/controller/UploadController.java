@@ -30,7 +30,7 @@ public class UploadController {
 	@Autowired
 	private ReturnVehicleId rv;
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/upload", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, @RequestParam("vehicle") String jsonString) throws IOException {
 		// Creating vehicle object from Json string
 		Gson gson = new Gson();

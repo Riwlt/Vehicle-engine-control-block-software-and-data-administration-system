@@ -33,13 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class RestDataController {
-	// Next implement JWT to secure API's
-	// Secure users with JWT perhaps?
-	// Kazkada pataisyt setResultTransformerius nes deprecated
-	// Manage Vehicles + Clients pataisyt
-	// Vehicle comment fielda padaryt kad nerodytu viso
-	// Padaryt edite kad reiktu pasirinkt o ne editint ta fielda
-	// Padaryt angulare kad url visu vehicle nuorodu butu kaip konstantos
 	
 	@Autowired
 	private SessionFactory factory;
@@ -70,7 +63,7 @@ public class RestDataController {
 		session.beginTransaction();
 		List<Vehicle> v = session
 				.createQuery(
-						"SELECT vmd.id as id, vmd.modelName as modelName, vmd.modelMarkId as mark_id FROM VehicleModel vmd")
+						"SELECT vmd.id as id, vmd.modelName as modelName, vmd.modelMarkId as mark_id FROM VehicleModel vmd ORDER BY vmd.id ASC")
 				.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).getResultList();
 		session.close();
 		return v;
@@ -82,7 +75,7 @@ public class RestDataController {
 	public List<Vehicle> showAllMarks() {
 		Session session = factory.openSession();
 		session.beginTransaction();
-		List<Vehicle> v = session.createQuery("SELECT vmk.markName as markName, vmk.id as id FROM VehicleMark vmk")
+		List<Vehicle> v = session.createQuery("SELECT vmk.markName as markName, vmk.id as id FROM VehicleMark vmk ORDER BY vmk.id ASC")
 				.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).getResultList();
 		session.close();
 		return v;

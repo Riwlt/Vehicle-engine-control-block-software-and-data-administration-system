@@ -10,8 +10,8 @@ export class MessageService {
   constructor() { }
 
   showMessage(severity: Severities, summary: string, detail: string) {
-    this.messageChange.next({severity, summary, detail});
-}
+    this.messageChange.next({ severity, summary, detail });
+  }
 
 
 }

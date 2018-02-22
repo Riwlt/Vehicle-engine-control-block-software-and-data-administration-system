@@ -17,14 +17,14 @@ import lt.riw.vehicle.VehicleModel;
 
 @RestController
 public class AddController {
-	
+
 	@Autowired
 	private SessionFactory factory;
 
 	@Autowired
 	private ReturnVehicleId rv;
-	
-	@RequestMapping(value = "/add/mark")
+
+	@RequestMapping(value = "/api/add/mark")
 	public void addVehicleMark(@RequestParam("mark") String jsonString) {
 		Gson gson = new Gson();
 		VehicleMark vm = gson.fromJson(jsonString, VehicleMark.class);
@@ -35,7 +35,7 @@ public class AddController {
 		session.close();
 	}
 
-	@RequestMapping(value = "/add/model")
+	@RequestMapping(value = "/api/add/model")
 	public void addVehicleModel(@RequestParam("model") String jsonString) {
 		Gson gson = new Gson();
 		VehicleForm vf = gson.fromJson(jsonString, VehicleForm.class);
@@ -48,5 +48,4 @@ public class AddController {
 		session.close();
 	}
 
-	
 }

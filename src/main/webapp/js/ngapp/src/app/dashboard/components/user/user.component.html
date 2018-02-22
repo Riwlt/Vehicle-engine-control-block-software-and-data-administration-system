@@ -1,31 +1,17 @@
-<p-panel header="Vehicle information: Click the field to edit.">
-    <form #userForm="ngForm" enctype="multipart/form-data">
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Mark name</span>
-                <span class="editField">{{ vehicles.markName }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="text" #markName name="markName" [(ngModel)]="vehicles.markName" value="{{ vehicles.markName }}" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <!-- Model name -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">Model name</span>
-                <span class="editField">
-                    {{ vehicles.modelName }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="text" #modelName name="modelName" [(ngModel)]="vehicles.modelName" value="{{ vehicles.modelName }}" pInputText>
-            </span>
-        </p-inplace>
+<p-panel header="Vehicle information: Click the field to edit."  >
+    <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()" >
+        <div class="form-group">
+            <label for="markName">Mark Name</label>
+            <select class="form-control" formControlName="markName" (change)="onMarkChange(markName.value);">
+                <option *ngFor="let mark of vehicleMarks" [value]="mark.markName">{{mark.markName}}</option>
+            </select>
+        </div>
+        <!-- Model Name -->
+        <label for="modelName">Model Name</label>
+        <select class="form-control" formControlName="modelName">
+            <option *ngIf="chosen" [ngValue]="undefined"></option>
+            <option *ngFor="let model of selectedVehicleModels" [ngValue]="model">{{model}}</option>
+        </select>
         <hr>
         <!-- Year  -->
         <p-inplace closable="closable">
@@ -37,8 +23,7 @@
                 </span>
             </span>
             <span pInplaceContent>
-                <input type="number" #vehicleYear name="vehicleYear" [(ngModel)]="vehicles.vehicleYear" value="{{ vehicles.vehicleYear }}"
-                    pInputText>
+                <input type="number" formControlName="vehicleYear" pInputText>
             </span>
         </p-inplace>
         <hr>
@@ -53,7 +38,7 @@
                 </span>
             </span>
             <span pInplaceContent>
-                <input type="date" #dateRepaired name="dateRepaired" [(ngModel)]="vehicles.dateRepaired" pInputText>
+                <input type="date" formControlName="dateRepaired" pInputText>
             </span>
         </p-inplace>
         <hr>
@@ -68,8 +53,7 @@
                 </span>
             </span>
             <span pInplaceContent>
-                <input type="text" #gearboxType name="gearboxType" [(ngModel)]="vehicles.gearboxType" value="{{ vehicles.gearboxType }}"
-                    pInputText>
+                <input type="text" formControlName="gearboxType" pInputText>
             </span>
         </p-inplace>
         <hr>
@@ -85,26 +69,13 @@
                 </span>
             </span>
             <span pInplaceContent>
-                <input type="number" #cubage name="cubage" [(ngModel)]="vehicles.cubage" value="{{ vehicles.cubage }}" pInputText>
+                <input type="number" formControlName="cubage" pInputText>
             </span>
         </p-inplace>
         <hr>
         <!-- Comment  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Vehicle comment
-                </span>
-                <span class="editField">
-                    {{ vehicles.vehicleChangesComment }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="text" #vehicleChangesComment name="vehicleChangesComment" [(ngModel)]="vehicles.vehicleChangesComment" value="{{ vehicles.vehicleChangesComment }}"
-                    pInputText>
-            </span>
-        </p-inplace>
+        <label for></label>
+        <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize">{{vehicles.vehicleChangesComment}}</textarea>
         <hr>
         <!-- Hex File  -->
         <p-inplace closable="closable">
@@ -117,12 +88,14 @@
                 </span>
             </span>
             <span pInplaceContent>
-                <input type="text" #hexFile name="hexFile" [(ngModel)]="vehicles.hexFile" value="{{ vehicles.hexFile }}" pInputText>
+                <input type="text" formControlName="hexFile" pInputText>
             </span>
         </p-inplace>
         <hr>
         <div class="center">
-            <button type="button" pButton (click)="editVehicle(userForm);" label="Update" class="ui-button-success"></button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </form>
     <app-message></app-message>

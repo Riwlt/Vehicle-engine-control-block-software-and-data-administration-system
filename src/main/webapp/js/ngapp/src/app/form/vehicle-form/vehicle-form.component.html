@@ -4,7 +4,7 @@
       <div class="form-group">
         <label for="markName">Mark Name</label>
         <select class="form-control" #markName (change)="onMarkChange(markName.value)" [(ngModel)]="vehicles.markName" name="markName"
-          ([formControl])="markNameControl" required>
+          required>
           <option [ngValue]="undefined" selected></option>
           <option *ngFor="let mark of vehicleMarks">{{mark?.markName}}</option>
         </select>
@@ -12,10 +12,11 @@
 
       <div *ngIf="chosen" class="form-group">
         <label for="modelName">Model Name</label>
-        <select class="form-control" #modelName name="modelName" [(ngModel)]="vehicles.modelName" required>
+        <select class="form-control" #modelName="ngModel" name="modelName" [(ngModel)]="vehicles.modelName" required>
           <option [ngValue]="undefined" selected></option>
           <option *ngFor="let model of selectedVehicleModels">{{model}}</option>
         </select>
+        <div *ngIf="vehicleForm.submitted && !modelName.pristine" class="help-block">Password is required</div>
       </div>
 
       <div class="form-group">

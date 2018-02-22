@@ -10,12 +10,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lt.riw.security.JwtAuthenticationEntryPoint;
-import lt.riw.security.JwtAuthenticationProvider;
-import lt.riw.security.JwtAuthenticationTokenFilter;
-import lt.riw.security.JwtSuccessHandler;
+import lt.riw.security.jwt.JwtAuthenticationEntryPoint;
+import lt.riw.security.jwt.JwtAuthenticationProvider;
+import lt.riw.security.jwt.JwtAuthenticationTokenFilter;
+import lt.riw.security.jwt.JwtSuccessHandler;
 
 import java.util.Collections;
 
@@ -43,8 +45,14 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationSuccessHandler(new JwtSuccessHandler());
         return filter;
     }
+    // Fix configuration HERE
+    // From update 2.0.4
 
-
+    @Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder(11);
+	}
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
@@ -62,4 +70,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().cacheControl();
 
     }
+    
+    
 }

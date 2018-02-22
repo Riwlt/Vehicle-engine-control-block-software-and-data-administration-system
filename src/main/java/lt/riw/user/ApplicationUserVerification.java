@@ -3,28 +3,30 @@ package lt.riw.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-// Add encryption/decryption
-// Something else I forgot
+import lt.riw.security.PasswordManagement;
 
 @Service
 public class ApplicationUserVerification {
 
 	@Autowired
-	ApplicationUserRepository userRepo;
+	private ApplicationUserRepository userRepo;
+	@Autowired
+	private PasswordManagement pm;
 
-	public int verifyUser(String username, String password) {
-		int result = 0;
-
+	public boolean verifyUser(String username, String password) {
+		boolean result = false;
 		List<ApplicationUser> appUser = userRepo.findByUsername(username);
-
+		// If username has not been found
 		if (appUser.size() == 0) {
-			result = 0;
+			result = false;
+			// If username has been found
 		} else if (appUser.size() >= 1) {
-
-			if (appUser.get(0).getUsername().trim().equals(username) && appUser.get(0).getPassword().equals(password)) {
-				result = 1;
+			// Verifying password
+			if (pm.verifyHashedPassword(password, appUser.get(0).getPassword()) == true) {
+				result = true;
 			}
 
 		}

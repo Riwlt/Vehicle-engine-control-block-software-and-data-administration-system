@@ -6,7 +6,6 @@
         <div id="sidebar-wrapper">
             <nav>
                 <ul class="sidebar-nav">
-
                     <li>
                         <a [routerLink]="['data']">
                             <i class='fa fa-dashboard'></i> Dashboard</a>
@@ -30,12 +29,24 @@
                             <i class='fa fa-wpforms'></i> New Vehicle</a>
                     </li>
                     <li>
-                        <a [routerLink]="['manage/vehicles']">
-                            <i class='fa fa-wpforms'></i> Manage Vehicles</a>
+                        <a [routerLink]="['manage/models']">
+                            <i class='fa fa-wpforms'></i> Manage Models</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['manage/marks']">
+                            <i class='fa fa-wpforms'></i> Manage Marks</a>
                     </li>
                     <li>
                         <a [routerLink]="['manage/clients']">
                             <i class='fa fa-wpforms'></i> Manage Clients</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['manage/users']">
+                            <i class='fa fa-wpforms'></i> Manage Users</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/login']" (click)="logoutAuth()">
+                            <i class='fa fa-times'></i> Logout</a>
                     </li>
                 </ul>
             </nav>

@@ -17,19 +17,20 @@ import com.google.gson.GsonBuilder;
 import lt.riw.service.ReturnVehicleId;
 import lt.riw.vehicle.Vehicle;
 import lt.riw.vehicle.VehicleForm;
+import lt.riw.vehicle.VehicleMark;
+import lt.riw.vehicle.VehicleModel;
 
 @RestController
 public class EditController {
-	
+
 	@Autowired
 	private SessionFactory factory;
-	
+
 	@Autowired
 	private ReturnVehicleId rv;
-	
-	
+
 	@Transactional
-	@RequestMapping(value = "/edit/vehicle", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/edit/vehicle", method = RequestMethod.POST)
 	public void editVehicle(@RequestParam("vehicle") String jsonString, @RequestParam("id") long id) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -44,23 +45,53 @@ public class EditController {
 		v.setModelId(rv.returnVehicleId("model", vf.getModelName()));
 		v.setMarkId(rv.returnVehicleId("mark", vf.getMarkName()));
 		v.setId(id);
-
+		// System.out.println(v.getMarkId() + " " + v.getModelId() + " " +
+		// vf.getMarkName() + " " + vf.getModelName());
 		// If conversion fails it returns 0
 		if (v.getModelId() == 0 || v.getMarkId() == 0) {
 			tx.rollback();
 			session.close();
 		} else {
 			session.update(v);
-			session.flush();
 			tx.commit();
 			session.close();
 		}
 	}
-	
-	@RequestMapping(value = "/test")
-	public void testTest(){
-		System.out.println("test");
+
+	@Transactional
+	@RequestMapping(value = "/api/edit/mark")
+	public void editVehicleMark(@RequestParam("mark") String jsonString) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		VehicleMark vm = gson.fromJson(jsonString, VehicleMark.class);
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		if (vm.getId() == 0 || vm.getMarkName() == null) {
+			tx.rollback();
+			session.close();
+		} else {
+			session.update(vm);
+			tx.commit();
+			session.close();
+		}
+
 	}
-	
-	
+
+	@Transactional
+	@RequestMapping(value = "/api/edit/model")
+	public void editVehicleModel(@RequestParam("model") String jsonString, @RequestParam("mark_id") int markId) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		VehicleModel vm = gson.fromJson(jsonString, VehicleModel.class);
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		vm.setModelMarkId(markId);
+		if (vm.getId() == 0 || vm.getModelName() == null || vm.getModelMarkId() == 0) {
+			tx.rollback();
+			session.close();
+		} else {
+			session.update(vm);
+			tx.commit();
+			session.close();
+		}
+	}
 }

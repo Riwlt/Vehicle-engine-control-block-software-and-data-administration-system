@@ -11,84 +11,118 @@ import 'rxjs/add/operator/toPromise';
 import { IVehicle, IVehicleMark, IVehicleModel } from './vehicle.interface';
 import { MessageService } from '../../dashboard/components/common/message/message.service';
 import { NgForm } from '@angular/forms';
-
+import { User } from '../../dashboard/components/user/user.interface';
+import { AppConstants } from '../../app.constants';
+import { AuthenticationService } from '../../authentication/authentication.service';
+import { AuthGuard } from '../../authentication/_guards/auth.guard';
 
 @Injectable()
 export class VehicleService {
-  private vehicleUrl = 'http://localhost:8080/showall';
-  private vehicleByIdUrl = 'http://localhost:8080/showone?id=';
-  private vehicleMark = 'http://localhost:8080/showall/mark';
-  private vehicleModel = 'http://localhost:8080/showall/model';
-  private vehicleMarkAddUrl = 'http://localhost:8080/add/mark';
-  private vehicleModelAddUrl = 'http://localhost:8080/add/model';
-  private headers = new Headers({});
+
+
+  vehicles: IVehicle[] = [];
 
   constructor(
     private http: Http,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private authenticationService: AuthenticationService,
+    private authGuard: AuthGuard,
 
+  ) {
+  }
   /***********************************************/
   /* Getting Vehicle Data */
 
-  getVehicles(): Promise<IVehicle[]> {
-    return this.http.get(this.vehicleUrl)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+  getVehicles(): Observable<IVehicle[]> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    return this.http.get(AppConstants.VEHICLE_SHOWALL_URL, { headers: headers })
+      .map(result => result.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
-  getVehicleById(id): Promise<IVehicle[]> {
-    return this.http.get(this.vehicleByIdUrl + id)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+  getVehicleById(id): Observable<IVehicle[]> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    return this.http.get(AppConstants.VEHICLE_SHOW_BY_ID_URL + id, { headers: headers })
+      .map(result => result.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
-  getVehicleMarks(): Promise<IVehicleMark[]> {
-    return this.http.get(this.vehicleMark)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+
+  getVehicleMarks(): Observable<IVehicleMark[]> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    return this.http.get(AppConstants.VEHICLE_SHOW_MARK_URL, { headers: headers })
+      .map(result => result.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
-  getVehicleModels(): Promise<IVehicleModel[]> {
-    return this.http.get(this.vehicleModel)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+  getVehicleModels(): Observable<IVehicleModel[]> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    return this.http.get(AppConstants.VEHICLE_SHOW_MODEL_URL, { headers: headers })
+      .map(result => result.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
   /***********************************************/
   /* Adding Vehicle Data                         */
-
   addVehicleMark(form: NgForm): Promise<IVehicleMark[]> {
-    let formData: FormData = new FormData();
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    const formData: FormData = new FormData();
     formData.append('mark', JSON.stringify(form.value));
     this.messageService.showMessage('success', 'Success', 'Vehicle Mark has been submitted.');
     return this.http
-      .post(this.vehicleMarkAddUrl, formData, {headers: this.headers })
+      .post(AppConstants.VEHICLE_ADD_MARK_URL, formData, { headers: headers })
       .toPromise()
       .then(() => form)
       .catch(this.handleError);
   }
 
   addVehicleModel(form: NgForm): Promise<IVehicleMark[]> {
-    let formData: FormData = new FormData();
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    const formData: FormData = new FormData();
     formData.append('model', JSON.stringify(form.value));
     this.messageService.showMessage('success', 'Success', 'Vehicle Model has been submitted.');
     return this.http
-      .post(this.vehicleModelAddUrl, formData, {headers: this.headers })
+      .post(AppConstants.VEHICLE_ADD_MODEL_URL, formData, { headers: headers })
       .toPromise()
       .then(() => form)
       .catch(this.handleError);
   }
   /***********************************************/
   /* Edit Vehicle Data */
-  editVehicleById(selectedVehicleId, formValue, editVehicleUrl, headers): Promise<IVehicle> {
-    let formData: FormData = new FormData();
+  editVehicleById(selectedVehicleId, formValue): Promise<IVehicle> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    const formData: FormData = new FormData();
     formData.append('id', JSON.stringify(selectedVehicleId));
     formData.append('vehicle', JSON.stringify(formValue));
     return this.http
-      .post(editVehicleUrl, formData, { headers: headers })
+      .post(AppConstants.VEHICLE_EDIT_URL, formData, { headers: headers })
       .toPromise()
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
+  }
+
+  editVehicleMarkById(formValue): Promise<IVehicle> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    const formData: FormData = new FormData();
+    formData.append('mark', JSON.stringify(formValue));
+    return this.http
+      .post(AppConstants.VEHICLE_EDIT_MARK_URL, formData, { headers: headers })
+      .toPromise()
+      .catch(error => this.handleError(error));
+  }
+  editVehicleModelById(formValue, mark_id): Promise<IVehicle> {
+    const headers = new Headers();
+    this.authenticationService.createAuthorizationHeader(headers);
+    const formData: FormData = new FormData();
+    formData.append('model', JSON.stringify(formValue));
+    formData.append('mark_id', mark_id);
+    return this.http
+      .post(AppConstants.VEHICLE_EDIT_MODEL_URL, formData, { headers: headers })
+      .toPromise()
+      .catch(error => this.handleError(error));
   }
 
   /***********************************************/
@@ -97,8 +131,7 @@ export class VehicleService {
     return body || [];
   }
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    this.messageService.showMessage('error', 'Error', 'Error with adding the vehicle!');
     return Promise.reject(error.message || error);
   }
+
 }

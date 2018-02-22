@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lt.riw.security.JwtGenerator;
-import lt.riw.security.model.JwtUser;
+import lt.riw.security.jwt.JwtGenerator;
+import lt.riw.security.jwt.model.JwtUser;
 
 
 // Token repository
@@ -26,8 +26,6 @@ public class TokenController {
 
     @PostMapping
     public String generate(@RequestBody final JwtUser jwtUser) {
-
         return jwtGenerator.generate(jwtUser);
-
     }
 }
