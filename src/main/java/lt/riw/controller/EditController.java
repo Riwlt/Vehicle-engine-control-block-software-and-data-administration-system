@@ -1,5 +1,9 @@
 package lt.riw.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -16,6 +20,7 @@ import com.google.gson.GsonBuilder;
 
 import lt.riw.service.ReturnVehicleId;
 import lt.riw.vehicle.Vehicle;
+import lt.riw.vehicle.VehicleCustomer;
 import lt.riw.vehicle.VehicleForm;
 import lt.riw.vehicle.VehicleMark;
 import lt.riw.vehicle.VehicleModel;
@@ -31,7 +36,10 @@ public class EditController {
 
 	@Transactional
 	@RequestMapping(value = "/api/edit/vehicle", method = RequestMethod.POST)
-	public void editVehicle(@RequestParam("vehicle") String jsonString, @RequestParam("id") long id) {
+	public void editVehicle(@RequestParam("vehicle") String jsonString, @RequestParam("id") long id,
+			@RequestParam("customerData") String customerJson) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		// Getting and building the values from Edit form
@@ -41,18 +49,22 @@ public class EditController {
 		// Going to be modified to fit the database
 		Vehicle v = gson.fromJson(jsonString, Vehicle.class);
 		// Converting models and marks to fit in the database (as id's)
-
+		customerJson = customerJson.substring(0, customerJson.length() - 1);
+		customerJson = customerJson.substring(1);
+		VehicleCustomer vc = gson.fromJson(customerJson, VehicleCustomer.class);
 		v.setModelId(rv.returnVehicleId("model", vf.getModelName()));
 		v.setMarkId(rv.returnVehicleId("mark", vf.getMarkName()));
 		v.setId(id);
-		// System.out.println(v.getMarkId() + " " + v.getModelId() + " " +
-		// vf.getMarkName() + " " + vf.getModelName());
+		v.setDateAdded(dateFormat.format(date));
+
 		// If conversion fails it returns 0
-		if (v.getModelId() == 0 || v.getMarkId() == 0) {
+		if (v.getModelId() == 0 || v.getMarkId() == 0 || vc.getFirstName() == null || vc.getVehicleId() == 0) {
 			tx.rollback();
 			session.close();
+			throw new RuntimeException("Incorrect data, vehicle will not be edited.");
 		} else {
 			session.update(v);
+			session.update(vc);
 			tx.commit();
 			session.close();
 		}

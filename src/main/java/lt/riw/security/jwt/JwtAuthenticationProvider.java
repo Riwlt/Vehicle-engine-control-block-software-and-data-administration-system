@@ -40,7 +40,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             throw new RuntimeException("Incorrect JWT token or incorrect credentials.");
         } 
 
-        // NullPointeris cia jeigu tokenas su blogu body sugeneruotas
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(jwtUser.getRole());
         return new JwtUserDetails(jwtUser.getUserName(), jwtUser.getPassword(),

@@ -10,8 +10,8 @@
 		<meta attribute="class-description">
 			Main class for everything vehicle related.
 		</meta>
-		<id name="id" type="long" column="id" > 
-		<generator class="identity"/>
+		<id name="id" type="long" column="id">
+			<generator class="identity" />
 		</id>
 		<property name="markId" column="mark_id" type="int" />
 		<property name="modelId" column="model_id" type="int" />
@@ -21,7 +21,10 @@
 			type="string" />
 		<property name="cubage" column="cubage" type="int" />
 		<property name="gearboxType" column="gearbox_type" type="string" />
-		<property name="hexFile" column="hex_file" type="byte[]" />
+		<property name="licensePlate" column="license_plate" type="string" />
+		<property name="dateAdded" column="dateAdded" type="string" />
+		<property name="disabled" column="disabled" type="boolean" />
+		<property name="removed" column= "removed" type="boolean" />
 	</class>
 
 	<!-- VEHICLE MODEL -->
@@ -31,7 +34,7 @@
 			Vehicle model class
 		</meta>
 		<id name="id" type="long" column="id">
-		<generator class="identity"/>
+			<generator class="identity" />
 		</id>
 		<property name="modelName" column="model" type="string" />
 		<property name="modelMarkId" column="mark_id" type="int" />
@@ -44,10 +47,40 @@
 			Vehicle model class
 		</meta>
 		<id name="id" type="long" column="id">
-		<generator class="identity"/>
+			<generator class="identity" />
 		</id>
 		<property name="markName" column="mark" type="string" />
-		<!-- <property name="model_mark_id" column="mark_id" string="int"></property> -->
 	</class>
+
+	<class name="lt.riw.vehicle.VehicleFile" table="file_repository">
+		<meta attribute="class-description">
+			Vehicle file class
+		</meta>
+		<id name="id" type="long" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="fileName" column="file_name" type="string" />
+		<property name="fileBlob" column="file_blob" type="byte[]" />
+		<property name="dateAdded" column="date_added" type="string" />
+		<property name="vehicleId" column="vehicle_id" type="int" />
+		<property name="disabled" column="disabled" type="boolean" />
+	</class>
+
+	<class name="lt.riw.vehicle.VehicleCustomer" table="vehicle_customer">
+		<meta attribute="class-description">
+			Vehicle customer class
+		</meta>
+		<id name="id" type="long" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="firstName" column="firstName" type="string" />
+		<property name="lastName" column="lastName" type="string" />
+		<property name="vehicleId" column="vehicle_id" type="int" />
+		<property name="phoneNumber" column="phone_number" type="string" />
+		<property name="amountPaid" column="amount_paid" type="long" />
+	</class>
+
+
+
 </hibernate-mapping>   
      

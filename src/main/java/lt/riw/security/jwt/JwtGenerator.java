@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lt.riw.security.jwt.model.JwtUser;
+import lt.riw.user.ApplicationUser;
 import lt.riw.user.ApplicationUserVerification;
 
 import static lt.riw.security.jwt.JwtSecurityConstants.SECRET;
@@ -33,18 +34,17 @@ public class JwtGenerator {
 		// Building the JWT token with HS512 and custom secret word
 
 		// Result is 0 if user credentials are incorrect
-		boolean result = v.verifyUser(claims.getSubject(), (String) claims.get("password"));
+		ApplicationUser au = v.verifyUser(claims.getSubject(), (String) claims.get("password"));
 
 		// If jwtUser is null RunTimeException is thrown.
-		if (result == false) {
+		if (au.isResult() == false) {
 			return response;
-		} else if (result == true) {
-			return Jwts.builder()
+		} else if (au.isResult() == true) {
+			return au.getRole() + " " + Jwts.builder()
 					.setClaims(claims)
 					.signWith(SignatureAlgorithm.HS512, SECRET)
 					.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 					.compact();
-
 		}
 		return response;
 	}

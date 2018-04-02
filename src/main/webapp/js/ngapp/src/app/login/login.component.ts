@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.logout();
   }
-
+// Loginas neveikia
 
   login() {
     this.loading = true;

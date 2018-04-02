@@ -1,58 +1,59 @@
 <app-header></app-header>
-<app-sidebar></app-sidebar>
 
-<body>
-    <div id="wrapper" class="toggled">
-        <div id="sidebar-wrapper">
-            <nav>
-                <ul class="sidebar-nav">
-                    <li>
-                        <a [routerLink]="['data']">
-                            <i class='fa fa-dashboard'></i> Dashboard</a>
-                    </li>
+<div id="wrapper" class="toggled">
+    <div id="sidebar-wrapper">
+        <nav>
+            <ul class="sidebar-nav">
+                <li>
+                    <a [routerLink]="['data']">
+                        <i class='fa fa-dashboard'></i> Dashboard</a>
+                </li>
 
-                    <li>
-                        <a href="http://riw.lt/dokuwiki/doku.php?id=wiki:system">
-                            <i class='fa fa-question'></i> Wiki page </a>
-                    </li>
-                    <hr>
-                    <li>
-                        <a [routerLink]="['new/mark']">
-                            <i class='fa fa-wpforms'></i> New Mark</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['new/model']">
-                            <i class='fa fa-wpforms'></i> New Model</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['new/vehicle']">
-                            <i class='fa fa-wpforms'></i> New Vehicle</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['manage/models']">
-                            <i class='fa fa-wpforms'></i> Manage Models</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['manage/marks']">
-                            <i class='fa fa-wpforms'></i> Manage Marks</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['manage/clients']">
-                            <i class='fa fa-wpforms'></i> Manage Clients</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['manage/users']">
-                            <i class='fa fa-wpforms'></i> Manage Users</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/login']" (click)="logoutAuth()">
-                            <i class='fa fa-times'></i> Logout</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div id="menu1">
-            <router-outlet></router-outlet>
-        </div>
+                <li>
+                    <a href="http://riw.lt/dokuwiki/doku.php?id=wiki:system">
+                        <i class='fa fa-question'></i> Wiki page </a>
+                </li>
+                <hr>
+                <li>
+                    <a (click)="showNewMark()">
+                        <i class='fa fa-wpforms'></i> New Mark</a>
+                </li>
+                <li>
+                    <a (click)="showNewModel()">
+                        <i class='fa fa-wpforms'></i> New Model</a>
+                </li>
+                <li>
+                    <a [routerLink]="['new/vehicle']">
+                        <i class='fa fa-wpforms'></i> New Vehicle</a>
+                </li>
+                <li>
+                    <a [routerLink]="['manage/models']">
+                        <i class='fa fa-wpforms'></i> Manage Models</a>
+                </li>
+                <li>
+                    <a [routerLink]="['manage/marks']">
+                        <i class='fa fa-wpforms'></i> Manage Marks</a>
+                </li>
+                <li>
+                    <a [routerLink]="['manage/clients']">
+                        <i class='fa fa-wpforms'></i> Manage Clients</a>
+                </li>
+                <li>
+                    <a [routerLink]="['manage/users']">
+                        <i class='fa fa-wpforms'></i> Manage Users</a>
+                </li>
+            </ul>
+        </nav>
     </div>
-</body>
+    <div id="menu1">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<div *ngIf="displayDialogModel">
+<p-dialog header="Add Model" [(visible)]="displayDialogModel" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+    <app-model></app-model>
+</p-dialog>
+</div>
+<p-dialog header="Add Mark" [(visible)]="displayDialogMark" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+    <app-mark></app-mark>
+</p-dialog>

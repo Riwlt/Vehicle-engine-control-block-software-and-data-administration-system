@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-// PrimeNG
+// PrimeNG & Bootstrap
 import { RouterModule, Routes } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { PanelModule } from 'primeng/primeng';
@@ -14,9 +14,15 @@ import { GrowlModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogModule } from 'primeng/primeng';
+import { FileUploadModule } from 'primeng/primeng';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SpinnerModule } from 'primeng/spinner';
+import { BlockUIModule } from 'primeng/blockui';
 import { routing, appRoutingProviders } from './app.routes';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContextMenuModule } from 'primeng/primeng';
 // My imports
-import { VehicleFormComponent } from './form/vehicle-form/vehicle-form.component';
+import { VehicleFormComponent } from './dashboard/components/new/vehicle/vehicle-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './dashboard/components/header/header.component';
 import { SidebarComponent } from './dashboard/components/sidebar/sidebar.component';
@@ -31,10 +37,13 @@ import { ManageModelsComponent } from './dashboard/components/manage/manage-mode
 import { ManageClientsComponent } from './dashboard/components/manage/manage-clients/manage-clients.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './authentication/_guards/auth.guard';
+import { PermissionsGuard } from './authentication/_guards/permissions.guard';
 import { ManageUsersComponent } from './dashboard/components/manage/manage-users/manage-users.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ManageMarksComponent } from './dashboard/components/manage/manage-marks/manage-marks.component';
+import { SettingsComponent } from './dashboard/components/settings/settings.component';
+import { PageNotFoundComponent } from './dashboard/components/common/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -52,7 +61,13 @@ import { ManageMarksComponent } from './dashboard/components/manage/manage-marks
     TableModule,
     ProgressSpinnerModule,
     InputTextareaModule,
-    DialogModule
+    DialogModule,
+    FileUploadModule,
+    ConfirmDialogModule,
+    SpinnerModule,
+    NgbModule.forRoot(),
+    BlockUIModule,
+    ContextMenuModule
   ],
   declarations: [
     AppComponent,
@@ -70,12 +85,14 @@ import { ManageMarksComponent } from './dashboard/components/manage/manage-marks
     ManageClientsComponent,
     LoginComponent,
     ManageUsersComponent,
-    ManageMarksComponent
+    ManageMarksComponent,
+    SettingsComponent,
+    PageNotFoundComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [appRoutingProviders, AuthGuard],
+  providers: [appRoutingProviders, AuthGuard, PermissionsGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

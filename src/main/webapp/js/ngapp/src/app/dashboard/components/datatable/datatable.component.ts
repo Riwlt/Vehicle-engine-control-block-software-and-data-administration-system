@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableModule, SharedModule, LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
-import { Vehicle } from '../../../form/vehicle-form/vehicle';
 import { Router } from '@angular/router';
-import { VehicleService } from '../../../form/vehicle-form/vehicle.service';
+import { VehicleService } from '../new/vehicle/vehicle.service';
 import { MessageService } from '../common/message/message.service';
-import { IVehicle } from '../../../form/vehicle-form/vehicle.interface';
+import { IVehicle } from '../new/vehicle/vehicle.interface';
 import { AuthenticationService } from '../../../authentication/authentication.service';
 
 
@@ -49,9 +48,10 @@ export class DatatableComponent implements OnInit {
       }
     }, 500);
   }
-// Padaryt kad jeigu nerastas id rejectintu
+  // Padaryt kad jeigu nerastas id rejectintu
   onRowSelect(event) {
     this.router.navigate(['/dashboard/data', this.selectedVehicle.id]);
   }
+
 
 }

@@ -1,0 +1,115 @@
+<p-panel header="Vehicle information: Click the field to edit.">
+  <form [formGroup]="userForm">
+    <div class="row">
+      <div class="splitLeft">
+        <div class="col">
+          <div class="form-group">
+            <!-- Mark Name -->
+            <label for="markName">Mark Name</label>
+            <select class="form-control input-sm" formControlName="markName" (change)="onMarkChange(markName.value);">
+              <option *ngFor="let mark of vehicleMarks" [value]="mark.markName">{{mark.markName}}</option>
+            </select>
+          </div>
+          <!-- /markname -->
+          <!-- Model Name -->
+          <div class="form-group">
+            <label for="modelName">Model Name</label>
+            <select class="form-control input-sm" formControlName="modelName">
+              <option *ngIf="chosen" [ngValue]="undefined"></option>
+              <option *ngFor="let model of selectedVehicleModels" [ngValue]="model">{{model}}</option>
+            </select>
+          </div>
+          <!-- /modelname -->
+          <!-- Year  -->
+          <div class="form-group">
+            <label for="Vehicle Year">Vehicle Year</label>
+            <input type="number" class="form-control" formControlName="vehicleYear" pInputText>
+          </div>
+          <!-- /year -->
+          <!-- Date Repaired  -->
+          <div class="form-group">
+            <label for="Date Repaired">Date Repaired</label>
+            <input type="date" class="form-control" formControlName="dateRepaired" pInputText>
+          </div>
+          <!-- /daterepaired -->
+          <!-- Gearbox Type  -->
+          <div class="form-group">
+            <label for="Gearbox Type">Gearbox Type</label>
+            <select class="form-control" formControlName="gearboxType">
+              <option *ngFor="let type of gearboxTypeArray" [ngValue]="type">{{type}}</option>
+            </select>
+          </div>
+          <!-- /gearboxtype -->
+          <!-- Cubage -->
+          <div class="form-group">
+            <label for="Cubage">Cubage</label>
+            <input type="number" class="form-control" formControlName="cubage" pInputText>
+          </div>
+          <!-- /cubage -->
+
+          <!-- File Upload  -->
+          <div class="form-group">
+            <label for="File">File</label>
+            <input type="file" class="form-control" id="File" (change)="getFiles($event)" name="File" formControlName="file">
+          </div>
+        </div>
+        <!-- /fileUpload -->
+      </div>
+      <!-- /splitLeft -->
+      <div class="splitRight">
+        <div class="col">
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="First Name">First Name</label>
+            <input type="text" class="form-control" formControlName="firstName" autocomplete='given-name' pInputText>
+          </div>
+          <!-- /firstname -->
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="Last Name">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" autocomplete='family-name' pInputText>
+          </div>
+          <!-- /lastname -->
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="Phone Number">Phone Number</label>
+            <input type="number" class="form-control" formControlName="phoneNumber" autocomplete="tel" maxlength="50" pInputText>
+          </div>
+          <!-- /phonenumber -->
+          <!-- Amount Paid -->
+          <label for="Amount Paid">Amount Paid</label>
+          <div class="form-group">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">€</span> 
+              <input type="number" class="form-control" formControlName="amountPaid" pInputText>
+            </div>
+          </div>
+          <!-- /amountPaid -->
+          <!-- License Plate -->
+          <div class="form-group">
+            <label for="License Plate">License Plate</label>
+            <input type="text" class="form-control" formControlName="licensePlate" maxlength="50" pInputText>
+          </div>
+          <!-- /licenseplate -->
+          <!-- Comment  -->
+          <div class="form-group">
+            <label for="Vehicle Changes Comment">Vehicle Changes Comment</label>
+            <br>
+            <textarea [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" formControlName="vehicleChangesComment">{{vehicles.vehicleChangesComment}}</textarea>
+          </div>
+          <!-- /comment -->
+        </div>
+      </div>
+      <!-- /splitLeft  -->
+    </div>
+    <!-- /row -->
+  </form>
+  <div class="center">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary"  (click)="add(); userForm.reset();" [disabled]="!userForm.valid">Submit</button>
+      <!--  -->
+    </div>
+  </div>
+  <app-message></app-message>
+  <p-confirmDialog width="500" closeOnEscape="true" responsive="true"></p-confirmDialog>
+</p-panel>

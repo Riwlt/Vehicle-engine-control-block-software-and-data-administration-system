@@ -1,102 +1,148 @@
-<p-panel header="Vehicle information: Click the field to edit."  >
-    <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()" >
-        <div class="form-group">
-            <label for="markName">Mark Name</label>
-            <select class="form-control" formControlName="markName" (change)="onMarkChange(markName.value);">
-                <option *ngFor="let mark of vehicleMarks" [value]="mark.markName">{{mark.markName}}</option>
-            </select>
-        </div>
-        <!-- Model Name -->
-        <label for="modelName">Model Name</label>
-        <select class="form-control" formControlName="modelName">
-            <option *ngIf="chosen" [ngValue]="undefined"></option>
-            <option *ngFor="let model of selectedVehicleModels" [ngValue]="model">{{model}}</option>
-        </select>
-        <hr>
-        <!-- Year  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText"> Vehicle year </span>
-                <span class="editField">
-                    {{ vehicles.vehicleYear }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="number" formControlName="vehicleYear" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <!-- Date Repaired  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Date of repair </span>
-                <span class="editField">
-                    {{ vehicles.dateRepaired | date: 'yyyy-MM-dd'}}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="date" formControlName="dateRepaired" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <!-- Gearbox Type  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Gearbox type </span>
-                <span class="editField">
-                    {{ vehicles.gearboxType }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="text" formControlName="gearboxType" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <!-- Cubage  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Cubage
-                </span>
-                <span class="editField">
-                    {{ vehicles.cubage }}
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="number" formControlName="cubage" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <!-- Comment  -->
-        <label for></label>
-        <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize">{{vehicles.vehicleChangesComment}}</textarea>
-        <hr>
-        <!-- Hex File  -->
-        <p-inplace closable="closable">
-            <span pInplaceDisplay>
-                <span class="editFieldText">
-                    Hex file
-                </span>
-                <span class="editField">
-                    <i class="fa fa-pencil"></i>
-                </span>
-            </span>
-            <span pInplaceContent>
-                <input type="text" formControlName="hexFile" pInputText>
-            </span>
-        </p-inplace>
-        <hr>
-        <div class="center">
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+<p-blockUI [blocked]="loading" [target]="panel">
+    <div style="position:absolute;top:50%;left:50%">
+        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+    </div>
+</p-blockUI>
+<p-panel #panel header="Vehicle information: Click the field to edit.">
+    <form [formGroup]="userForm">
+        <div class="row">
+            <div class="splitLeft">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="markName">Mark Name</label>
+                        <select class="form-control input-sm" formControlName="markName" (change)="onMarkChange(markName.value);">
+                            <option *ngFor="let mark of vehicleMarks" [value]="mark.markName">{{mark.markName}}</option>
+                        </select>
+                    </div>
+                    <!-- /markname -->
+                    <!-- Model Name -->
+                    <div class="form-group">
+                        <label for="modelName">Model Name</label>
+                        <select class="form-control input-sm" formControlName="modelName">
+                            <option *ngIf="chosen" [ngValue]="undefined"></option>
+                            <option *ngFor="let model of selectedVehicleModels" [ngValue]="model">{{model}}</option>
+                        </select>
+                    </div>
+                    <!-- /modelname -->
+                    <!-- Year  -->
+                    <div class="form-group">
+                        <label for="Vehicle Year">Vehicle Year</label>
+                        <input type="number" class="form-control" formControlName="vehicleYear" pInputText>
+                    </div>
+                    <!-- /year -->
+                    <!-- Date Repaired  -->
+                    <div class="form-group">
+                        <label for="Date Repaired">Date Repaired</label>
+                        <input type="date" class="form-control" formControlName="dateRepaired" pInputText>
+                    </div>
+                    <!-- /daterepaired -->
+                    <!-- Gearbox Type  -->
+                    <div class="form-group">
+                        <label for="Gearbox Type">Gearbox Type</label>
+                        <select class="form-control" formControlName="gearboxType">
+                            <option *ngFor="let type of gearboxTypeArray" [ngValue]="type">{{type}}</option>
+                        </select>
+                    </div>
+                    <!-- /gearboxtype -->
+                    <!-- Cubage -->
+                    <div class="form-group">
+                        <label for="Cubage">Cubage</label>
+                        <input type="number" class="form-control" formControlName="cubage" pInputText>
+                    </div>
+                    <!-- /cubage -->
+
+                    <!-- File Upload  -->
+                    <div class="form-group">
+                        <h5 class="first">File Upload</h5>
+                        <p-fileUpload #fileUploadForm name="upload[]" customUpload="true" (uploadHandler)="onUpload($event, fileUploadForm)" maxFileSize="1000000"
+                            (onUpload)="clear()">
+                            <ng-template pTemplate="content">
+                                <div *ngIf="vehicleFiles.length">
+                                    <p *ngFor="let file of vehicleFiles">{{file.fileName}} - {{file.fileSize}} bytes
+                                        <input type="button" (click)="confirmFileDeletion(file)" value="Del" class="btn btn-primary" />
+                                        <input type="button" (click)="downloadFile(file)" value="DL" class="btn btn-primary" />
+                                    </p>
+                                </div>
+                            </ng-template>
+                        </p-fileUpload>
+                    </div>
+                </div>
+                <!-- /fileUpload -->
             </div>
+            <!-- /splitLeft -->
+            <div class="splitRight">
+                <div class="col">
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="First Name">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstName" autocomplete='given-name' pInputText>
+                    </div>
+                    <!-- /firstname -->
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label for="Last Name">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastName" autocomplete='family-name' pInputText>
+                    </div>
+                    <!-- /lastname -->
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="Phone Number">Phone Number</label>
+                        <input type="text" class="form-control" formControlName="phoneNumber" autocomplete="tel" pInputText>
+                    </div>
+                    <!-- /phonenumber -->
+                    <!-- Amount Paid -->
+                    <label for="Amount Paid">Amount Paid</label>
+                    <div class="form-group">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon">€</span>
+                            <input type="number" class="form-control" formControlName="amountPaid" pInputText>
+                        </div>
+                    </div>
+                    <!-- /amountPaid -->
+                    <!-- License Plate -->
+                    <div class="form-group">
+                        <label for="License Plate">License Plate</label>
+                        <input type="text" class="form-control" formControlName="licensePlate" pInputText>
+                    </div>
+                    <!-- /licenseplate -->
+                    <!-- Comment  -->
+                    <div class="form-group">
+                        <label for="Vehicle Changes Comment">Vehicle Changes Comment</label>
+                        <br>
+                        <textarea [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize">{{vehicles.vehicleChangesComment}}</textarea>
+                    </div>
+                    <!-- /comment -->
+                    <!-- Status -->
+                    <div class="form-group">
+                        <label for="Status">Status</label>
+                        <div *ngIf="vehicles.disabled" style="color:rgb(185, 8, 8)">Disabled</div>
+                        <div *ngIf="!vehicles.disabled" style="color:rgb(7, 126, 7)">Active</div>
+                    </div>
+                    <!-- /status -->
+                    <!-- Actions -->
+                    <div class="form-group">
+                        <label for="Actions">Actions</label>
+                        <div *ngIf="vehicles.disabled">
+                            <button class="btn btn-primary" (click)="enableVehicle()">Enable</button>
+                        </div>
+                        <div *ngIf="!vehicles.disabled">
+                            <button class="btn btn-primary" (click)="disableVehicle()">Disable</button>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" (click)="confirmDeletion()">Remove</button>
+                    </div>
+                    <!-- /actions -->
+                </div>
+            </div>
+            <!-- /splitLeft  -->
         </div>
+        <!-- /row -->
     </form>
+    <div class="center">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" (click)="onFormSubmit(userForm)" [disabled]="!userForm.valid">Submit</button>
+        </div>
+    </div>
     <app-message></app-message>
+    <p-confirmDialog width="500" closeOnEscape="true" responsive="true"></p-confirmDialog>
 </p-panel>

@@ -1,7 +1,6 @@
 package lt.riw.vehicle;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -10,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,105 +46,143 @@ public class Vehicle implements Serializable {
 	@Column(name = "gearbox_type")
 	private String gearboxType;
 
-	@Column(name = "hex_file")
-	@Lob
-	private byte[] hexFile;
+	@Column(name = "license_plate")
+	private String licensePlate;
 
-	public Vehicle(int markId, int vehicleYear, Date dateRepaired, String vehicleChangesComment, byte[] hexFile,
-			int modelId, int cubage, String gearboxType, long id) {
+	@Column(name = "dateAdded")
+	private String dateAdded;
+
+	@Column(name = "disabled")
+	private boolean disabled;
+	
+	@Column(name = "removed")
+	private boolean removed;
+	
+	public Vehicle(long id, int markId, int modelId, int vehicleYear, Date dateRepaired, String vehicleChangesComment,
+			int cubage, String gearboxType, String licensePlate, String dateAdded, boolean disabled, boolean removed) {
 		super();
 		this.id = id;
 		this.markId = markId;
+		this.modelId = modelId;
 		this.vehicleYear = vehicleYear;
 		this.dateRepaired = dateRepaired;
 		this.vehicleChangesComment = vehicleChangesComment;
-		this.hexFile = hexFile;
-		this.modelId = modelId;
-		this.gearboxType = gearboxType;
 		this.cubage = cubage;
+		this.gearboxType = gearboxType;
+		this.licensePlate = licensePlate;
+		this.dateAdded = dateAdded;
+		this.disabled = disabled;
+		this.removed = removed;
 	}
+
 
 	public Vehicle() {
 		super();
 	}
 
-	public int getMarkId() {
-		return markId;
+	
+	public String getDateAdded() {
+		return dateAdded;
 	}
 
-	public void setMarkId(int markId) {
-		this.markId = markId;
+	public void setDateAdded(String dateAdded) {
+		this.dateAdded = dateAdded;
 	}
 
-	public int getVehicleYear() {
-		return vehicleYear;
+	public String getLicensePlate() {
+		return licensePlate;
 	}
 
-	public void setVehicleYear(int vehicleYear) {
-		this.vehicleYear = vehicleYear;
-	}
-
-	public Date getDateRepaired() {
-		return dateRepaired;
-	}
-
-	public void setDateRepaired(Date dateRepaired) {
-		this.dateRepaired = dateRepaired;
-	}
-
-	public String getVehicleChangesComment() {
-		return vehicleChangesComment;
-	}
-
-	public void setVehicleChangesComment(String vehicleChangesComment) {
-		this.vehicleChangesComment = vehicleChangesComment;
-	}
-
-	public byte[] getHexFile() {
-		return hexFile;
-	}
-
-	public void setHexFile(byte[] hexFile) {
-		this.hexFile = hexFile;
-	}
-
-	public int getModelId() {
-		return modelId;
-	}
-
-	public void setModelId(int modelId) {
-		this.modelId = modelId;
+	public void setLicensePlate(String licensePlate) {
+		this.licensePlate = licensePlate;
 	}
 
 	public int getCubage() {
 		return cubage;
 	}
 
-	public void setCubage(int cubage) {
-		this.cubage = cubage;
+	public Date getDateRepaired() {
+		return dateRepaired;
 	}
 
 	public String getGearboxType() {
 		return gearboxType;
 	}
 
-	public void setGearboxType(String gearboxType) {
-		this.gearboxType = gearboxType;
-	}
-
 	public long getId() {
 		return id;
+	}
+
+	public int getMarkId() {
+		return markId;
+	}
+
+	public int getModelId() {
+		return modelId;
+	}
+
+	public String getVehicleChangesComment() {
+		return vehicleChangesComment;
+	}
+
+	public int getVehicleYear() {
+		return vehicleYear;
+	}
+
+	public void setCubage(int cubage) {
+		this.cubage = cubage;
+	}
+
+	public void setDateRepaired(Date dateRepaired) {
+		this.dateRepaired = dateRepaired;
+	}
+
+	public void setGearboxType(String gearboxType) {
+		this.gearboxType = gearboxType;
 	}
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	public void setMarkId(int markId) {
+		this.markId = markId;
+	}
+
+	public void setModelId(int modelId) {
+		this.modelId = modelId;
+	}
+
+	public void setVehicleChangesComment(String vehicleChangesComment) {
+		this.vehicleChangesComment = vehicleChangesComment;
+	}
+
+	public void setVehicleYear(int vehicleYear) {
+		this.vehicleYear = vehicleYear;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public boolean isRemoved() {
+		return removed;
+	}
+
+	public void setRemoved(boolean removed) {
+		this.removed = removed;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Vehicle [markId=" + markId + ", modelId=" + modelId + ", vehicleYear=" + vehicleYear + ", dateRepaired="
-				+ dateRepaired + ", vehicleChangesComment=" + vehicleChangesComment + ", cubage=" + cubage
-				+ ", gearboxType=" + gearboxType + ", hexFile=" + Arrays.toString(hexFile) + "]";
+		return "Vehicle [id=" + id + ", markId=" + markId + ", modelId=" + modelId + ", vehicleYear=" + vehicleYear
+				+ ", dateRepaired=" + dateRepaired + ", vehicleChangesComment=" + vehicleChangesComment + ", cubage="
+				+ cubage + ", gearboxType=" + gearboxType + ", licensePlate=" + licensePlate + "]";
 	}
 
 }

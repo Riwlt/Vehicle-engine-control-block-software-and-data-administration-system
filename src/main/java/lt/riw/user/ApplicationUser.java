@@ -24,13 +24,16 @@ public class ApplicationUser implements Serializable{
 	private String password;
 	@Column(name = "role")
 	private String role;
+	private boolean result;
+ 
 
-	public ApplicationUser(long id, String username, String password, String role) {
+	public ApplicationUser(long id, String username, String password, String role, boolean result) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.result = result;
 	}
 
 	public String getRole() {
@@ -68,6 +71,18 @@ public class ApplicationUser implements Serializable{
 	@Override
 	public String toString() {
 		return "ApplicationUser [username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
+
+	public boolean isResult() {
+		return result;
+	}
+
+	public void setResult(boolean result) {
+		this.result = result;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

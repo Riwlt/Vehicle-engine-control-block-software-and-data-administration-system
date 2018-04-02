@@ -1,3 +1,98 @@
-<p>
-  manage-users works!
-</p>
+<p-panel header="User details">
+  <button type="button" pButton icon="btn-primary" label="New User" (click)='showUser()'></button>
+  <p-table [value]="users">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width:4em">id</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th style="width:3em"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.role}}</td>
+          <td>
+            <button pButton icon="fa-search" (click)="selectUsers(user)"></button>
+          </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- ADD NEW USER -->
+  <p-dialog header="Add new user" [(visible)]="displayUserDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+    <form [formGroup]="userForm">
+      <div class="ui-g ui-fluid" *ngIf="userDialogModel">
+        <div class="ui-g-12">
+          <div class="ui-g-4">
+            <label for="Username">Username</label>
+          </div>
+          <div class="ui-g-8">
+            <input pInputText formControlName="username" class="form-control" required/>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-4">
+            <label for="Password">Password</label>
+          </div>
+          <div class="ui-g-8">
+            <input type="password" formControlName="password" class="form-control" required/>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-4">
+            <label for="Role">Role</label>
+          </div>
+          <div class="ui-g-8">
+            <select class="form-control" formControlName="role" required>
+              <option *ngFor="let role of roleArray" [ngValue]="role">{{role}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa-check" (click)="addUser()" [disabled]="!userForm.valid" label="Save"></button>
+      </div>
+
+    </p-footer>
+  </p-dialog>
+  <!-- /NEW USER -->
+  <!-- USER DETAILS -->
+  <p-dialog header="Edit User Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500"
+    (onHide)="onDialogHide()">
+    <div class="ui-g ui-fluid" *ngIf="dialogModel">
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="User">User</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="users" [(ngModel)]="dialogModel.username" class="form-control" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="Role">Role</label>
+        </div>
+        <div class="ui-g-8">
+          <select class="form-control" [(ngModel)]="dialogModel.role">
+            <option *ngFor="let role of roleArray" [ngValue]="role">{{role}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="confirmDeletion(dialogModel)" label="Delete"></button>
+        <button type="button" pButton icon="fa-check" (click)="updateUser(dialogModel)" label="Save"></button>
+      </div>
+    </p-footer>
+  </p-dialog>
+  <!-- /USER DETAILS -->
+  <p-confirmDialog width="500" closeOnEscape="true" responsive="true"></p-confirmDialog>
+</p-panel>
+<app-message></app-message>

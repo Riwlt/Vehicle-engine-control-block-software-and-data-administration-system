@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
-import { VehicleService } from '../../../../form/vehicle-form/vehicle.service';
-import { IVehicleMark, IVehicleModel } from '../../../../form/vehicle-form/vehicle.interface';
+import { VehicleService } from '../../new/vehicle/vehicle.service';
+import { IVehicleMark, IVehicleModel } from '../../new/vehicle/vehicle.interface';
 import { MessageService } from '../../common/message/message.service';
-import { ArraySortPipe } from '../../../../pipes/array-sort.pipe';
 import { DialogModule } from 'primeng/primeng';
 
 @Component({
@@ -44,6 +43,17 @@ export class ManageModelsComponent implements OnInit {
     } else {
       this.service.editVehicleModelById(dialogModel, dialogModel.mark_id);
       this.messageService.showMessage('success', 'Success!', 'Vehicle model has been edited!');
+    }
+  }
+
+  remove(dialogModel) {
+    if (dialogModel.id > 0) {
+      this.service.removeVehicleModelById(dialogModel.id).then(
+        () => {
+           this.ngOnInit();
+          this.displayDialog = false;
+          }
+      );
     }
   }
 

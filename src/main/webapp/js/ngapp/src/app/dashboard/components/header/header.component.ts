@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  username: String;
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.returnUsername();
+  }
+
+  logoutAuth() {
+    this.authenticationService.logout();
+  }
+  returnUsername() {
+    this.username = JSON.parse(localStorage.getItem('currentUser')).username;
+    return this.username;
   }
 
 }

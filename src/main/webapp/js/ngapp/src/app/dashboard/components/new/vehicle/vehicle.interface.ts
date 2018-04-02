@@ -1,4 +1,5 @@
 export interface IVehicle {
+    // Vehicle
     id: number;
     markName: string;
     modelName: string;
@@ -7,7 +8,14 @@ export interface IVehicle {
     vehicleChangesComment: Text;
     cubage: number;
     gearboxType: string;
-    hexFile: File;
+    licensePlate: string;
+    // Customer
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    amountPaid: number;
+    dateAdded: Date;
+    disabled: boolean;
 }
 export interface IVehicleMark {
     id: number;
@@ -17,4 +25,13 @@ export interface IVehicleModel {
     id: number;
     mark_id: number;
     modelName: string;
+}
+export interface IVehicleFile {
+    id: number;
+    fileBlob: File;
+    fileName: string;
+    fileSize: number;
+    vehicleId: number;
+    licensePlate: string;
+    dateAdded: Date;
 }

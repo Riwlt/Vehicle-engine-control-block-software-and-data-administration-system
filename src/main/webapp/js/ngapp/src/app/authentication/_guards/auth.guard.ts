@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { Router, CanActivate, CanActivateChild } from '@angular/router';
 import { NavigationStart } from '@angular/router';
 
 
@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) {
         router.events.forEach((event) => {
             if (event instanceof NavigationStart) {
-                // For each view change do smth
+             this.canActivate();
             }
         });
     }
@@ -19,8 +19,8 @@ export class AuthGuard implements CanActivate {
             // logged in so return true
             return true;
         }
-
         // not logged in so redirect to login page
+        window.location.href = '/login';
         this.router.navigate(['/login']);
         return false;
     }

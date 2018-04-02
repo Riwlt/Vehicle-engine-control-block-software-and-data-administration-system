@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../../../../form/vehicle-form/vehicle.service';
-import { IVehicleMark, IVehicleModel } from '../../../../form/vehicle-form/vehicle.interface';
+import { VehicleService } from '../../new/vehicle/vehicle.service';
+import { IVehicleMark, IVehicleModel } from '../../new/vehicle/vehicle.interface';
 import { MessageService } from '../../common/message/message.service';
 import { DialogModule } from 'primeng/primeng';
 
@@ -21,7 +21,6 @@ export class ManageMarksComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.service.getVehicleMarks().subscribe(
       (marks) => {
         this.marks = marks;
@@ -42,6 +41,16 @@ export class ManageMarksComponent implements OnInit {
       this.messageService.showMessage('success', 'Success!', 'Vehicle mark has been edited!');
     }
 
+  }
+  removeMark(dialogMark) {
+    if (dialogMark.id > 0 || dialogMark.markId > 0) {
+      this.service.removeVehicleMarkById(dialogMark).then(
+        () => {
+          this.ngOnInit();
+          this.displayDialog = false;
+        }
+      );
+    }
   }
 
 }

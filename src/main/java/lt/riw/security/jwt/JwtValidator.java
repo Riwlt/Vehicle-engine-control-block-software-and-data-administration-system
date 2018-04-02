@@ -3,6 +3,7 @@ package lt.riw.security.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lt.riw.security.jwt.model.JwtUser;
+import lt.riw.user.ApplicationUser;
 import lt.riw.user.ApplicationUserVerification;
 
 import static lt.riw.security.jwt.JwtSecurityConstants.SECRET;
@@ -32,12 +33,13 @@ public class JwtValidator {
 			jwtUser.setPassword((String) body.get("password"));
 
 			// Result is 0 if user credentials are incorrect
-			boolean result = v.verifyUser(body.getSubject(), (String) body.get("password"));
-
+			ApplicationUser au = v.verifyUser(body.getSubject(), (String) body.get("password"));
+ 
 			// If jwtUser is null RunTimeException is thrown.
-			if (result == false) {
+			if (au.isResult() == false) {
 				jwtUser = null;
 			}
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}

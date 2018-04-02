@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-mapping>
+	<class name="lt.riw.user.ApplicationUser" lazy="false" table="users_repository">
+		<meta attribute="class-description">
+			
+		</meta>
+		<id name="id" type="long" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="username" column="u" type="string" />
+		<property name="password" column="pw" type="string" />
+		<property name="role" column="role" type="string" />
+		<property name="result" column="result" type="boolean" />
+		
+	</class>
+
+</hibernate-mapping>

@@ -8,6 +8,6 @@ export class Vehicle {
         public vehicleChangesComment: string,
         public cubage: number,
         public gearboxType: string,
-        public hexFile: string
+        public licensePlate: string
     ) { }
 }

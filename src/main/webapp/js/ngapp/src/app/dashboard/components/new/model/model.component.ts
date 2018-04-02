@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../common/message/message.service';
-import { VehicleService } from '../../../../form/vehicle-form/vehicle.service';
-import { IVehicleMark } from '../../../../form/vehicle-form/vehicle.interface';
+import { VehicleService } from '../../new/vehicle/vehicle.service';
+import { IVehicleMark } from '../../new/vehicle/vehicle.interface';
 import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../../../../authentication/authentication.service';
 

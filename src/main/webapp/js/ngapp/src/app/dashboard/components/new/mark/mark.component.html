@@ -1,13 +1,11 @@
-<p-panel header="Add a new mark to the database">
-    <form #markForm="ngForm" enctype="multipart/form-data">
-      <div class="form-group">
-          <label for="markName">Mark Name</label>
-          <input type="text" #markName="ngModel" name="markName" [(ngModel)]="markForm.markName" class="form-control" required>
-          <div [hidden]="markName.valid || markName.pristine" class="alert alert-danger">
-            Mark name is required
-          </div>
-        </div>
-        <button type="button" pButton (click)="addVehicleMark(markForm);" label="Submit" class="ui-button-success" [disabled]="!markForm.form.valid" ></button> 
-      </form>
-  </p-panel>
-  <app-message></app-message>
+<form #markForm="ngForm" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="markName">Mark Name</label>
+    <input type="text" #markName="ngModel" name="markName" [(ngModel)]="markForm.markName" class="form-control" required>
+    <div [hidden]="markName.valid || markName.pristine" class="alert alert-danger">
+      Mark name is required
+    </div>
+  </div>
+  <button type="button" pButton (click)="addVehicleMark(markForm);" label="Submit" class="ui-button-success" [disabled]="!markForm.form.valid"></button>
+</form>
+<app-message></app-message>

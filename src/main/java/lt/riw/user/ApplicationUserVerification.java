@@ -13,25 +13,29 @@ public class ApplicationUserVerification {
 
 	@Autowired
 	private ApplicationUserRepository userRepo;
+	
 	@Autowired
 	private PasswordManagement pm;
 
-	public boolean verifyUser(String username, String password) {
-		boolean result = false;
+	public ApplicationUser verifyUser(String username, String password) {
+		ApplicationUser au = new ApplicationUser();
+		au.setResult(false);
 		List<ApplicationUser> appUser = userRepo.findByUsername(username);
 		// If username has not been found
 		if (appUser.size() == 0) {
-			result = false;
+			au.setResult(false);
 			// If username has been found
 		} else if (appUser.size() >= 1) {
 			// Verifying password
 			if (pm.verifyHashedPassword(password, appUser.get(0).getPassword()) == true) {
-				result = true;
+				au.setResult(true);
+				au.setUsername(username);
+				au.setRole(appUser.get(0).getRole());
 			}
 
 		}
-
-		return result;
+	
+		return au;
 	}
 
 }
