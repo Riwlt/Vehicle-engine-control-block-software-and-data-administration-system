@@ -117,16 +117,19 @@ export class UserComponent implements OnInit {
         this.editVehicle();
     }
 
+
+
+
     downloadFile(vehicleFiles) {
-        this.service.convertString(vehicleFiles.fileBlob).then(
-            fileBlob => this.fileBlob = fileBlob
-        ).then(
-            () => {
-                const blob = new Blob([this.fileBlob.text()], { type: '' });
-                const fileName = vehicleFiles.fileName;
-                saveAs(blob, fileName);
-            }
-        );
+        const contentType = vehicleFiles.fileBlob.split(';')[0];
+        const byteCharacters = atob(vehicleFiles.fileBlob);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: contentType });
+        saveAs(blob, vehicleFiles.fileName);
     }
 
     onMarkChangeCons(vehicles) {
@@ -271,9 +274,9 @@ export class UserComponent implements OnInit {
         this.service.disableVehicleFileById(file.id)
             .then(
                 () => {
-                     this.getVehicleFilesBySelectedId();
-                     this.loading = false;
-                     }
+                    this.getVehicleFilesBySelectedId();
+                    this.loading = false;
+                }
             );
 
     }
@@ -304,5 +307,8 @@ export class UserComponent implements OnInit {
             }
         );
     }
+
+
+
 
 }

@@ -84,6 +84,7 @@ export class VehicleService {
       .map(result => result.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
+
   getVehicleFullLength(): Observable<number> {
     const headers = new Headers();
     this.authenticationService.createAuthorizationHeader(headers);

@@ -4,12 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lt.riw</groupId>
-	<artifactId>accounting</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>Vehicle engine control block software and data administration system</artifactId>
 	<packaging>war</packaging>
 
-	<name>accounting</name>
-	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -135,4 +132,6 @@
 	</build>
 
 
+	<version>v2.1.5</version>
+	<name>Vehicle engine control block software and data administration system</name>
 </project>

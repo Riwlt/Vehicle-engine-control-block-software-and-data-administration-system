@@ -118,9 +118,9 @@ export class VehicleFormComponent implements OnInit {
   // Getting files from form field
   getFiles(event) {
     this.files = event.srcElement.files;
-    if (this.files[0].size >= 50000000) {
+    if (this.files[0].size >= 1000000) {
       this.userForm.controls.file.setValue(null);
-      this.messageService.showMessage('error', 'Error', 'File size cannot be over 50 MB.');
+      this.messageService.showMessage('error', 'Error', 'File size cannot be over 1 MB.');
     }
   }
 

@@ -142,7 +142,7 @@ public class RestDataController {
 	// Returns file data that belongs to vehicle by id
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/showone/file")
-	public String showVehicleFilesByVehicleId(@RequestParam(value = "id", required = true) int id) {
+	public List<VehicleFile> showVehicleFilesByVehicleId(@RequestParam(value = "id", required = true) int id) {
 		Session session = factory.openSession();
 		List<VehicleFile> v = session
 				.createQuery(
@@ -150,21 +150,21 @@ public class RestDataController {
 								+ " vf.vehicleId as vehicleId FROM VehicleFile vf JOIN Vehicle v ON vf.vehicleId = v.id JOIN VehicleMark vm ON v.markId = vm.id WHERE vf.vehicleId = "
 								+ id + " AND vf.disabled = 0 ORDER by vf.id ASC")
 				.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).getResultList();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		JsonArray vehicleArray = gson.toJsonTree(v).getAsJsonArray();
-		return vehicleArray.toString();
+	//	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	//	JsonArray vehicleArray = gson.toJsonTree(v).getAsJsonArray();
+		
+		return v;
 	}
 
 	// Returns file by file_repository id
 	@RequestMapping(value = "/api/showone/download/file")
-	public String showVehicleFilesByFileId(@RequestParam(value = "id", required = true) int id) {
+	@SuppressWarnings("unchecked")
+	public List<VehicleFile> showVehicleFilesByFileId(@RequestParam(value = "id", required = true) int id) {
 		Session session = factory.openSession();
-		Object v = session.createQuery(
+		List<VehicleFile> v = session.createQuery(
 				"SELECT vf.fileBlob as fileBlob, vf.fileName as fileName, OCTET_LENGTH(vf.fileBlob) as fileSize FROM VehicleFile vf WHERE vf.id = "
 						+ id)
-				.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).getSingleResult();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String oneFile = gson.toJson(v);
-		return oneFile;
+				.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).getResultList();
+		return v;
 	}
 }
